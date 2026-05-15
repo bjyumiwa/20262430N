@@ -374,6 +374,114 @@
       mask-image:radial-gradient(ellipse 62% 68% at 50% 53%, #000 68%, rgba(0,0,0,.96) 78%, transparent 98%);
     }
 
+
+    /* ===========================================================
+       透過の最終調整
+       キャラクターの後ろにある「白い板」や、画面カードごと動いて見える感じを消します。
+       背景画像は body の public/space_background.png だけを使い、
+       .screen や .pet-stage 側には背景を持たせません。
+       =========================================================== */
+
+    /* 大きな画面カードの背景を消す。
+       ここに背景画像をもう一度入れると、四角い範囲だけ背景が別に見えてしまうため、
+       .screen では背景を持たせない。 */
+    .screen{
+      background:transparent !important;
+      background-image:none !important;
+      background-color:transparent !important;
+      -webkit-backdrop-filter:none !important;
+      backdrop-filter:none !important;
+      box-shadow:none !important;
+      border:1px solid rgba(255,255,255,.34) !important;
+    }
+    .screen::before,
+    .screen::after{
+      display:none !important;
+      background:none !important;
+    }
+
+    /* キャラクターを置く左側エリアも完全に透明にする */
+    .home-layout,
+    .home-layout > div,
+    .pet-stage,
+    .character-stage,
+    .character-area,
+    .character-box,
+    .pet-area,
+    .petting-area .pet-stage{
+      background:transparent !important;
+      background-image:none !important;
+      background-color:transparent !important;
+      -webkit-backdrop-filter:none !important;
+      backdrop-filter:none !important;
+      box-shadow:none !important;
+      border-color:transparent !important;
+    }
+    .home-layout::before,
+    .home-layout::after,
+    .home-layout > div::before,
+    .home-layout > div::after,
+    .pet-stage::before,
+    .pet-stage::after,
+    .character-stage::before,
+    .character-stage::after,
+    .character-area::before,
+    .character-area::after,
+    .character-box::before,
+    .character-box::after,
+    .pet-area::before,
+    .pet-area::after{
+      display:none !important;
+      background:none !important;
+    }
+
+    /* キャラクター画像そのものには背景・枠・白い四角を付けない */
+    .pet-img,
+    .macaron-img,
+    .char-fallback{
+      background:transparent !important;
+      background-image:none !important;
+      background-color:transparent !important;
+      border:none !important;
+      box-shadow:none !important;
+      outline:none !important;
+    }
+
+    /* 画像の外側に残る白い四角をさらに弱める応急処置。
+       本来は、キャラクター画像ファイルを透過PNGにするのが一番きれいです。
+       ただし、コード側ではこのマスクで四角い板の見え方をかなり抑えます。 */
+    .pet-img:not(.fadeout){
+      -webkit-mask-image:
+        radial-gradient(ellipse 70% 74% at 50% 54%,
+          #000 0%,
+          #000 72%,
+          rgba(0,0,0,.92) 82%,
+          transparent 100%) !important;
+      mask-image:
+        radial-gradient(ellipse 70% 74% at 50% 54%,
+          #000 0%,
+          #000 72%,
+          rgba(0,0,0,.92) 82%,
+          transparent 100%) !important;
+    }
+
+    /* 読みやすさが必要なUIだけ、うっすら白を残す。
+       キャラクターの後ろには白を出さず、ボタン・吹き出しだけをガラス風にする。 */
+    .speech-bubble,
+    .menu-grid button,
+    .choice,
+    .meter,
+    .pill,
+    .letter,
+    input[type="text"],
+    .checkitem,
+    .card{
+      background-color:rgba(255,255,255,.62) !important;
+      -webkit-backdrop-filter:blur(4px) !important;
+      backdrop-filter:blur(4px) !important;
+    }
+
+
   </style>
 </head>
 <body>
