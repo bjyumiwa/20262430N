@@ -236,7 +236,14 @@
       display:none !important;
     }
     .screen{
-      background:rgba(255,255,255,.78);
+      /* 白いカードが広く乗るので、ここにも宇宙背景を重ねて見えるようにする */
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.68)),
+        url("public/space_background.png") center center / cover no-repeat;
+      backdrop-filter:blur(10px);
+    }
+    .screen::before{
+      display:none !important;
     }
     .pet-stage,
     .character-stage,
