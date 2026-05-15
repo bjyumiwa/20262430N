@@ -1,0 +1,1739 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>4,320N｜ちいさな存在と、5日間</title>
+  <style>
+    :root{
+      --bg1:#f7edff;
+      --bg2:#e6f6ff;
+      --bg3:#fff8df;
+      --ink:#3e3155;
+      --muted:#736681;
+      --card:rgba(255,255,255,.82);
+      --line:rgba(117,96,150,.18);
+      --pink:#ff89c2;
+      --blue:#76c9ff;
+      --purple:#b88cff;
+      --yellow:#ffd76b;
+      --green:#9be66f;
+      --shadow:0 18px 48px rgba(79, 52, 118, .16);
+      --radius:28px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Hiragino Sans","Yu Gothic",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 15% 18%, rgba(255,255,255,.92) 0 2px, transparent 3px),
+        radial-gradient(circle at 80% 10%, rgba(255,255,255,.75) 0 2px, transparent 3px),
+        radial-gradient(circle at 40% 86%, rgba(255,255,255,.82) 0 2px, transparent 3px),
+        linear-gradient(135deg,var(--bg1),var(--bg2) 46%,var(--bg3));
+      min-height:100%;
+      overflow-x:hidden;
+    }
+    body::before,body::after{
+      content:"";position:fixed;inset:auto;pointer-events:none;z-index:-1;border-radius:999px;filter:blur(1px);
+    }
+    body::before{width:42vw;height:42vw;left:-10vw;top:12vh;background:rgba(255,137,194,.23)}
+    body::after{width:46vw;height:46vw;right:-12vw;bottom:-12vh;background:rgba(118,201,255,.25)}
+    .app{width:min(980px,100%);margin:0 auto;padding:18px 14px 80px}
+    .topbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:10px 0 14px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.03em}
+    .brand .logo{width:38px;height:38px;border-radius:14px;background:linear-gradient(135deg,#fff,var(--pink));box-shadow:var(--shadow);display:grid;place-items:center}
+    .small{font-size:13px;color:var(--muted);line-height:1.65}
+    .screen{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(18px,4vw,36px);backdrop-filter:blur(16px);min-height:72vh;position:relative;overflow:hidden}
+    .screen::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 0%, rgba(255,255,255,.6), transparent 32%);pointer-events:none}
+    .screen > *{position:relative}
+    h1{font-size:clamp(28px,6vw,48px);line-height:1.15;margin:0 0 14px;letter-spacing:.02em}
+    h2{font-size:clamp(22px,4vw,34px);line-height:1.2;margin:0 0 16px}
+    h3{font-size:20px;margin:22px 0 10px}
+    p{line-height:1.85;margin:10px 0;color:#483a60}
+    .lead{font-size:clamp(16px,2.3vw,20px);color:#53446a}
+    .row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .center{text-align:center}.right{text-align:right}
+    .grid{display:grid;gap:14px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    @media (max-width:720px){.grid.two,.grid.three{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.screen{min-height:70vh}}
+    button,.btn{
+      appearance:none;border:0;border-radius:999px;padding:14px 20px;min-height:48px;background:#fff;color:var(--ink);font-weight:700;box-shadow:0 9px 22px rgba(79,52,118,.11);cursor:pointer;transition:.18s transform,.18s box-shadow,.18s opacity,.18s background;display:inline-flex;justify-content:center;align-items:center;gap:8px;text-decoration:none;font-size:15px;
+    }
+    button:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(79,52,118,.15)}
+    button.primary{background:linear-gradient(135deg,#fff,#ffe5f2 45%,#e7f6ff);border:1px solid rgba(255,255,255,.75)}
+    button.accent{background:linear-gradient(135deg,#fff7cc,#ffd76b);}
+    button.soft{background:rgba(255,255,255,.65);border:1px solid var(--line)}
+    button.dangerless{background:linear-gradient(135deg,#eef4ff,#fff);}
+    button:disabled{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none}
+    input[type="text"]{width:100%;border:1px solid var(--line);border-radius:20px;padding:15px 16px;font-size:17px;color:var(--ink);background:rgba(255,255,255,.78);outline:none}
+    input[type="checkbox"]{width:20px;height:20px;accent-color:#a982ff;flex:none}
+    .checklist{display:grid;gap:11px;margin:18px 0}.checkitem{display:flex;gap:11px;align-items:flex-start;background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:18px;padding:12px 13px;line-height:1.55}
+    .pill{border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.65);border:1px solid var(--line);font-size:13px;color:var(--muted)}
+    .card{background:rgba(255,255,255,.62);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 8px 20px rgba(79,52,118,.07)}
+    .speech-bubble{position:relative;background:rgba(255,255,255,.86);border:2px solid rgba(255,137,194,.35);border-radius:24px;padding:16px 18px;margin:14px 0 18px;box-shadow:0 12px 28px rgba(79,52,118,.10);text-align:left}
+    .speech-bubble::before{content:"";position:absolute;left:34px;top:-10px;width:18px;height:18px;background:rgba(255,255,255,.86);border-left:2px solid rgba(255,137,194,.35);border-top:2px solid rgba(255,137,194,.35);transform:rotate(45deg)}
+    .speech-bubble p{font-size:clamp(17px,2.4vw,22px);line-height:1.65;margin:0;color:#3f3157;font-weight:700}
+    .speech-label{display:inline-block;margin-bottom:8px;padding:4px 10px;border-radius:999px;background:linear-gradient(135deg,#ffe5f2,#eef7ff);font-size:12px;font-weight:800;color:#7b5c96;letter-spacing:.04em}
+    .speech-bubble.memory-note{border-color:rgba(255,215,107,.65);background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(255,248,223,.9))}
+    .speech-bubble.memory-note .speech-label{background:linear-gradient(135deg,#fff3b8,#ffe5f2);color:#7d6120}
+    .language-card{min-height:120px;font-size:22px}
+    .macaron-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:22px}@media(max-width:720px){.macaron-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .macaron-card{border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.52);border-radius:26px;padding:18px;min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:var(--shadow);transition:.18s transform,.18s box-shadow}
+    .macaron-card:hover{transform:translateY(-4px) scale(1.01)}
+    .macaron{width:122px;height:80px;border-radius:56% 56% 48% 48%;position:relative;filter:drop-shadow(0 13px 12px rgba(64,42,90,.16));background:var(--macaron);box-shadow:inset 0 14px 20px rgba(255,255,255,.55), inset 0 -14px 20px rgba(80,40,110,.12)}
+    .macaron::before{content:"";position:absolute;left:8px;right:8px;top:34px;height:16px;border-radius:999px;background:rgba(255,255,255,.82);box-shadow:0 0 10px rgba(255,255,255,.4)}
+    .macaron::after{content:"✦";position:absolute;right:22px;top:8px;color:rgba(255,255,255,.9);font-size:22px;text-shadow:0 0 8px currentColor}
+    .pet-stage{display:grid;place-items:center;min-height:330px;margin:12px 0;position:relative}
+    .pet-img{max-width:min(440px,85vw);max-height:420px;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 22px 22px rgba(69,44,98,.18));animation:floaty 3.2s ease-in-out infinite}
+    .pet-img.smallish{max-width:min(340px,78vw);max-height:310px}.pet-img.sleep{animation:breath 3.4s ease-in-out infinite}.pet-img.sad{animation:none}.pet-img.birth{animation:birthPop 1.4s ease both}.pet-img.fadeout{animation:fadeToLight 4.6s ease-in forwards}
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    @keyframes breath{0%,100%{transform:scale(1)}50%{transform:scale(1.015)}}
+    @keyframes birthPop{0%{opacity:0;transform:scale(.5) translateY(30px);filter:blur(8px)}60%{opacity:1;transform:scale(1.06) translateY(-8px)}100%{transform:scale(1)}}
+    @keyframes fadeToLight{0%{opacity:1;transform:scale(1);filter:drop-shadow(0 22px 22px rgba(69,44,98,.18))}65%{opacity:.35;transform:scale(.96);filter:blur(2px) brightness(1.2)}100%{opacity:0;transform:scale(.55);filter:blur(14px) brightness(2.4)}}
+
+
+    /* ===========================================================
+       キャラクター別の通常時アニメーション
+       happy状態だけに付与し、sleep/sad/birth/fadeoutの演出は崩さない。
+       =========================================================== */
+    .pet-motion-rabbit{
+      animation:rabbitOneTwoThreeHop 3.8s ease-in-out infinite;
+      transform-origin:50% 92%;
+      will-change:transform;
+    }
+    .pet-motion-kangaroo{
+      animation:kangarooBoingPyoko 2.9s cubic-bezier(.25,.9,.3,1) infinite;
+      transform-origin:50% 95%;
+      will-change:transform;
+    }
+    .pet-motion-penguin{
+      animation:penguinChokoFromRight 6.2s steps(6,end) infinite;
+      transform-origin:50% 95%;
+      will-change:transform;
+    }
+    .pet-motion-seal{
+      animation:sealSlowKurukuru 12s ease-in-out infinite;
+      transform-origin:50% 55%;
+      will-change:transform;
+    }
+    .pet-motion-lizard{
+      animation:lizardKyoroKyoro 2.8s ease-in-out infinite;
+      transform-origin:50% 75%;
+      will-change:transform;
+    }
+    .pet-motion-cat{
+      animation:catRestlessRunSpin 5.4s ease-in-out infinite;
+      transform-origin:50% 88%;
+      will-change:transform;
+    }
+    @keyframes rabbitOneTwoThreeHop{
+      0%,26%{transform:translateY(0) rotate(0)}
+      31%{transform:translateY(-30px) rotate(-3deg)}
+      37%{transform:translateY(0) rotate(2deg)}
+      43%,68%{transform:translateY(0) rotate(0)}
+      73%{transform:translateY(-30px) rotate(3deg)}
+      79%{transform:translateY(0) rotate(-2deg)}
+      100%{transform:translateY(0) rotate(0)}
+    }
+    @keyframes kangarooBoingPyoko{
+      0%,100%{transform:translateY(0) scale(1) rotate(0)}
+      10%{transform:translateY(4px) scaleX(1.05) scaleY(.92)}
+      24%{transform:translateY(-58px) scaleX(.92) scaleY(1.12) rotate(-3deg)}
+      36%{transform:translateY(0) scaleX(1.08) scaleY(.9) rotate(2deg)}
+      48%{transform:translateY(-16px) scale(1) rotate(1deg)}
+      58%{transform:translateY(0) scale(1) rotate(0)}
+      72%{transform:translateY(-46px) scaleX(.95) scaleY(1.08) rotate(3deg)}
+      84%{transform:translateY(0) scaleX(1.04) scaleY(.94) rotate(-1deg)}
+    }
+    @keyframes penguinChokoFromRight{
+      0%{transform:translateX(92px) translateY(0) rotate(4deg)}
+      16%{transform:translateX(64px) translateY(-4px) rotate(-5deg)}
+      32%{transform:translateX(36px) translateY(0) rotate(5deg)}
+      48%{transform:translateX(8px) translateY(-4px) rotate(-4deg)}
+      64%{transform:translateX(-20px) translateY(0) rotate(4deg)}
+      80%{transform:translateX(-48px) translateY(-3px) rotate(-3deg)}
+      100%{transform:translateX(-76px) translateY(0) rotate(3deg)}
+    }
+    @keyframes sealSlowKurukuru{
+      0%{transform:rotate(0deg) scale(1)}
+      20%{transform:rotate(360deg) scale(1.01)}
+      40%{transform:rotate(720deg) scale(1)}
+      65%{transform:rotate(720deg) scale(1)}
+      100%{transform:rotate(1080deg) scale(1.01)}
+    }
+    @keyframes lizardKyoroKyoro{
+      0%,100%{transform:translateX(0) rotate(0deg) scaleX(1)}
+      18%{transform:translateX(4px) rotate(3deg) scaleX(1)}
+      36%{transform:translateX(-4px) rotate(-3deg) scaleX(-1)}
+      54%{transform:translateX(-4px) rotate(-2deg) scaleX(-1)}
+      72%{transform:translateX(4px) rotate(3deg) scaleX(1)}
+    }
+    @keyframes catRestlessRunSpin{
+      0%{transform:translateX(-92px) translateY(0) rotate(0deg)}
+      18%{transform:translateX(70px) translateY(-8px) rotate(4deg)}
+      31%{transform:translateX(92px) translateY(0) rotate(0deg)}
+      44%{transform:translateX(36px) translateY(-14px) rotate(160deg)}
+      56%{transform:translateX(-12px) translateY(0) rotate(360deg)}
+      72%{transform:translateX(-86px) translateY(-6px) rotate(355deg)}
+      88%{transform:translateX(18px) translateY(0) rotate(370deg)}
+      100%{transform:translateX(-92px) translateY(0) rotate(360deg)}
+    }
+    /* 動きの研究用プロトタイプなので、OS側の「視差効果を減らす」設定が入っていても、
+       このキャラクター動作は確認できるようにしています。 */
+    .char-fallback{width:260px;height:260px;border-radius:50%;background:linear-gradient(135deg,#fff,#e9ddff);display:grid;place-items:center;font-size:64px;box-shadow:var(--shadow)}
+    .char-fallback.smallish{width:220px;height:220px;font-size:58px}
+    .char-fallback.sleep{animation:breath 3.4s ease-in-out infinite}
+    .char-fallback.sad{animation:none}
+    .char-fallback.birth{animation:birthPop 1.4s ease both}
+    .char-fallback.fadeout{animation:fadeToLight 4.6s ease-in forwards}
+    .hidden{display:none!important}
+    .sparkle{position:absolute;width:9px;height:9px;background:#fff;border-radius:50%;box-shadow:0 0 12px #fff;animation:spark 2.3s linear infinite}.sparkle:nth-child(2){left:18%;top:25%;animation-delay:.3s}.sparkle:nth-child(3){left:78%;top:22%;animation-delay:.9s}.sparkle:nth-child(4){left:66%;top:76%;animation-delay:1.2s}.sparkle:nth-child(5){left:32%;top:73%;animation-delay:1.6s}
+    @keyframes spark{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1.25)}}
+    .meter{width:100%;height:18px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line);overflow:hidden}.meter-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#ff9ac8,#ffd76b,#9be66f);transition:.3s width}
+    .home-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center}@media(max-width:860px){.home-layout{grid-template-columns:1fr}.home-layout .right{text-align:center}}
+    .menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.menu-grid button{min-height:72px;border-radius:24px;flex-direction:column;font-size:16px}.menu-icon{font-size:28px}
+    .choice{padding:24px;border-radius:28px;background:rgba(255,255,255,.7);border:1px solid var(--line);font-size:22px;min-height:120px;display:grid;place-items:center}
+    .poop-area,.petting-area{min-height:420px;position:relative;background:rgba(255,255,255,.46);border:1px dashed rgba(93,70,126,.25);border-radius:28px;overflow:hidden;touch-action:none}
+    .poop{position:absolute;font-size:42px;cursor:pointer;filter:drop-shadow(0 10px 8px rgba(80,50,90,.13));transition:.16s transform,.16s opacity}.poop:hover{transform:scale(1.08) rotate(-4deg)}
+    .heart{position:absolute;pointer-events:none;font-size:24px;animation:heartUp 1.2s ease-out forwards}.hand{position:absolute;font-size:34px;opacity:.72;transform:translate(-50%,-50%);pointer-events:none}
+    @keyframes heartUp{0%{opacity:0;transform:translateY(0) scale(.8)}20%{opacity:1}100%{opacity:0;transform:translateY(-90px) scale(1.3)}}
+    .letter{background:linear-gradient(135deg,#fff,#fff7e6);border:1px solid rgba(201,168,95,.22);box-shadow:0 18px 35px rgba(122,85,24,.09);border-radius:20px;padding:24px;max-width:720px;margin:20px auto;text-align:left;position:relative}.letter::before{content:"✉";position:absolute;right:24px;top:12px;font-size:28px;opacity:.35}
+    .noise{position:absolute;inset:0;opacity:.11;mix-blend-mode:multiply;background:repeating-linear-gradient(0deg,rgba(50,30,70,.8) 0 1px,transparent 1px 3px);animation:noiseMove .18s infinite;pointer-events:none}.dim{background:linear-gradient(135deg,rgba(61,52,82,.78),rgba(142,159,201,.5));color:#fff}.dim p,.dim .lead{color:#fff}.dim .card{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.24)}
+    @keyframes noiseMove{from{transform:translateY(0)}to{transform:translateY(4px)}}
+    .countdown{font-size:clamp(40px,12vw,96px);font-weight:900;line-height:1;margin:10px 0;color:#7c62cc;text-shadow:0 0 22px rgba(255,255,255,.7)}
+    .dev-panel{position:fixed;left:12px;right:12px;bottom:12px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:22px;padding:10px;box-shadow:0 12px 30px rgba(60,40,90,.14);display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;z-index:20}.dev-panel button{min-height:38px;padding:9px 12px;font-size:12px}.dev-panel span{font-size:12px;color:var(--muted)}
+    .toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px;box-shadow:var(--shadow);z-index:40;font-size:14px;opacity:0;pointer-events:none;transition:.2s opacity,.2s top}.toast.show{opacity:1;top:24px}
+    details{background:rgba(255,255,255,.56);border:1px solid var(--line);border-radius:18px;padding:12px;margin-top:14px}summary{cursor:pointer;font-weight:700}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;white-space:pre-wrap;max-height:200px;overflow:auto;color:#594d6b}
+  </style>
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+  <main class="app">
+    <div class="topbar">
+      <div class="brand"><div class="logo">✦</div><div><div>4,320N</div><div class="small">browser care game prototype</div></div></div>
+      <div id="status" class="row"></div>
+    </div>
+    <div id="app" class="screen"></div>
+  </main>
+  <div id="devPanel" class="dev-panel hidden"></div>
+
+<script>
+/* ===========================================================
+   4,320N｜小さなデジタル存在との5日間お世話ゲーム
+   GitHub Pages用 prototype / single-file HTML / admin randomization
+   =========================================================== */
+
+// 参加者は条件を選びません。
+// 通常URLでは条件①②③がランダムに割り当てられ、画面には表示されません。
+// 管理者確認をしたい時だけ、URLの末尾に ?admin=1 を付けます。
+// この時だけ CSVログ・JSONログ・ログ確認・リセットの管理者用ボタンを表示します。
+const URL_PARAMS = new URLSearchParams(location.search);
+const ADMIN_MODE = URL_PARAMS.get("admin") === "1" || URL_PARAMS.get("dev") === "1";
+const DEV_MODE = ADMIN_MODE;
+const SURVEY_URL = "https://forms.gle/xxxxxxxx"; // GoogleフォームURLに差し替えます。
+const LOG_ENDPOINT = ""; // Google Apps ScriptのウェブアプリURL。入れると管理者用スプレッドシートへ自動送信します。
+const REMOTE_LOG_QUEUE_KEY = "osewa_4320n_remote_log_queue_v1";
+const STORAGE_KEY = "osewa_4320n_state_v5_multilingual";
+const LOG_KEY = "osewa_4320n_event_log_v5_multilingual";
+const REQUIRED_ACTIONS_PER_DAY = 2;
+
+const CONDITIONS = {
+  C1: { engagement:"high", frame:"inherit" },
+  C2: { engagement:"high", frame:"new" },
+  C3: { engagement:"low", frame:"inherit" },
+  C4: { engagement:"low", frame:"new" }
+};
+
+// 4日目の再生成後に操作する3条件。
+// 参加者画面では条件名を説明せず、容姿・動き・記録コメントとして自然に表れるようにします。
+const IDENTITY_CONDITIONS = {
+  A1: { label:"① 容姿は同じで動作が違う", appearance:"same", motion:"different", memoryLog:false, keepOriginalBehaviorAndLog:false },
+  A2: { label:"② 容姿は違うが、元の動作と言葉づかいが続く", appearance:"different", motion:"same", memoryLog:false, keepOriginalBehaviorAndLog:true },
+  A3: { label:"③ 容姿は違うが、元の動作とお世話ログがよみがえる", appearance:"different", motion:"same", memoryLog:true, keepOriginalBehaviorAndLog:true }
+};
+
+const CHARACTERS = {
+  rabbit_pink: {
+    id:"rabbit_pink", emoji:"🐰", color:"pink", animal:{ja:"マカロン星のちいさな存在", en:"Small being from Macaron Star", "zh-CN":"马卡龙星的小小存在"},
+    images:{ happy:"public/assets/characters/rabbit_pink/happy.png", sad:"public/assets/characters/rabbit_pink/sad.png", sleep:"public/assets/characters/rabbit_pink/sleep.png" }
+  },
+  kangaroo_blue: {
+    id:"kangaroo_blue", emoji:"🦘", color:"blue", animal:{ja:"マカロン星のちいさな存在", en:"Small being from Macaron Star", "zh-CN":"马卡龙星的小小存在"},
+    images:{ happy:"public/assets/characters/kangaroo_blue/happy.png", sad:"public/assets/characters/kangaroo_blue/sad.png", sleep:"public/assets/characters/kangaroo_blue/sleep.png" }
+  },
+  penguin_yellow: {
+    id:"penguin_yellow", emoji:"🐧", color:"yellow", animal:{ja:"マカロン星のちいさな存在", en:"Small being from Macaron Star", "zh-CN":"马卡龙星的小小存在"},
+    images:{ happy:"public/assets/characters/penguin_yellow/happy.png", sad:"public/assets/characters/penguin_yellow/sad.png", sleep:"public/assets/characters/penguin_yellow/sleep.png" }
+  },
+  seal_gray: {
+    id:"seal_gray", emoji:"🦭", color:"gray", animal:{ja:"マカロン星のちいさな存在", en:"Small being from Macaron Star", "zh-CN":"马卡龙星的小小存在"},
+    images:{ happy:"public/assets/characters/seal_gray/happy.png", sad:"public/assets/characters/seal_gray/sad.png", sleep:"public/assets/characters/seal_gray/sleep.png" }
+  },
+  lizard_green: {
+    id:"lizard_green", emoji:"🦎", color:"green", animal:{ja:"マカロン星のちいさな存在", en:"Small being from Macaron Star", "zh-CN":"马卡龙星的小小存在"},
+    images:{ happy:"public/assets/characters/lizard_green/happy.png", sad:"public/assets/characters/lizard_green/sad.png", sleep:"public/assets/characters/lizard_green/sleep.png" }
+  },
+  cat_purple: {
+    id:"cat_purple", emoji:"🐱", color:"purple", animal:{ja:"マカロン星のちいさな存在", en:"Small being from Macaron Star", "zh-CN":"马卡龙星的小小存在"},
+    images:{ happy:"public/assets/characters/cat_purple/happy.png", sad:"public/assets/characters/cat_purple/sad.png", sleep:"public/assets/characters/cat_purple/sleep.png" }
+  }
+};
+
+const MACARONS = [
+  { id:"pink_macaron", color:"pink", label:{ja:"ピンク",en:"Pink","zh-CN":"粉色"}, character_id:"rabbit_pink", css:"linear-gradient(135deg,#ffc0dd,#ff7fbd)" },
+  { id:"blue_macaron", color:"blue", label:{ja:"青",en:"Blue","zh-CN":"蓝色"}, character_id:"kangaroo_blue", css:"linear-gradient(135deg,#9ee9ff,#4faaff)" },
+  { id:"yellow_macaron", color:"yellow", label:{ja:"黄",en:"Yellow","zh-CN":"黄色"}, character_id:"penguin_yellow", css:"linear-gradient(135deg,#fff1a0,#ffc837)" },
+  { id:"gray_macaron", color:"gray", label:{ja:"白・グレー",en:"White / Gray","zh-CN":"白灰色"}, character_id:"seal_gray", css:"linear-gradient(135deg,#fff,#d6d7dc)" },
+  { id:"green_macaron", color:"green", label:{ja:"緑",en:"Green","zh-CN":"绿色"}, character_id:"lizard_green", css:"linear-gradient(135deg,#cfff74,#7edc3e)" },
+  { id:"purple_macaron", color:"purple", label:{ja:"紫",en:"Purple","zh-CN":"紫色"}, character_id:"cat_purple", css:"linear-gradient(135deg,#d5b7ff,#8a61e9)" }
+];
+
+// 復活後に「違う容姿・違う動作」として使う対応関係。
+// 研究計画⑦付録の整理に合わせ、うさぎ↔アザラシ、カンガルー↔トカゲ、ペンギン↔猫で対応させます。
+const REGENERATION_PAIR_MAP = {
+  rabbit_pink:"seal_gray",
+  seal_gray:"rabbit_pink",
+  kangaroo_blue:"lizard_green",
+  lizard_green:"kangaroo_blue",
+  penguin_yellow:"cat_purple",
+  cat_purple:"penguin_yellow"
+};
+
+const CHARACTER_PERSONALITY_TEXTS = {
+  "rabbit_pink": {
+    "ja": {
+      "home": [
+        "きてくれて、うれしいぴょん！",
+        "ずっと待ってたぴょん。",
+        "もっと一緒にいたいぴょん。",
+        "今日はたくさん遊びたいぴょん！"
+      ],
+      "food": [
+        "{value}、おいしいぴょん！",
+        "ごはんの記録、ちゃんと覚えてるぴょん。"
+      ],
+      "outing": [
+        "{value}に行けて、うれしいぴょん！",
+        "また一緒におでかけしたいぴょん。"
+      ],
+      "clean": [
+        "きれいにしてくれて助かったぴょん。",
+        "すっきりしたぴょん、ありがとうぴょん。"
+      ],
+      "petting": [
+        "なでてくれて、ぽかぽかするぴょん。",
+        "もっとそばにいたいぴょん。"
+      ],
+      "memory": {
+        "petting": "{day}日目に、たくさんなでてくれたぴょん。あのハート、まだ少し残ってるぴょん。",
+        "food": "{day}日目に、{value}を選んでくれたぴょん。あの味、覚えてるぴょん。",
+        "outing": "{day}日目に、{value}へ行ったぴょん。また一緒に行きたいぴょん。",
+        "clean": "{day}日目に、きれいにしてくれたぴょん。やさしさの記録、残ってるぴょん。",
+        "fallback": "ここまで一緒にいてくれた記録が、少し残ってるぴょん。"
+      }
+    },
+    "en": {
+      "home": [
+        "You came back. I’m so happy, pyon!",
+        "I was waiting for you, pyon.",
+        "I want to stay with you longer, pyon.",
+        "Let’s play a lot today, pyon!"
+      ],
+      "food": [
+        "{value} tastes so good, pyon!",
+        "I remember this food record, pyon."
+      ],
+      "outing": [
+        "I’m happy we went to {value}, pyon!",
+        "I want to go out with you again, pyon."
+      ],
+      "clean": [
+        "Thank you for cleaning things up, pyon.",
+        "I feel fresh now, pyon. Thank you, pyon."
+      ],
+      "petting": [
+        "Your petting feels warm, pyon.",
+        "I want to stay close a little longer, pyon."
+      ],
+      "memory": {
+        "petting": "On Day {day}, you petted me many times, pyon. I still feel those hearts a little, pyon.",
+        "food": "On Day {day}, you chose {value}, pyon. I remember that taste, pyon.",
+        "outing": "On Day {day}, we went to {value}, pyon. I want to go there with you again, pyon.",
+        "clean": "On Day {day}, you cleaned things up for me, pyon. That kindness is still recorded, pyon.",
+        "fallback": "A little record of our time together is still here, pyon."
+      }
+    },
+    "zh-CN": {
+      "home": [
+        "你来了，我很开心ぴょん！",
+        "我一直在等你ぴょん。",
+        "想和你再多待一会儿ぴょん。",
+        "今天也想一起玩ぴょん！"
+      ],
+      "food": [
+        "{value}很好吃ぴょん！",
+        "这次吃饭的记录，我记得ぴょん。"
+      ],
+      "outing": [
+        "能去{value}，我很开心ぴょん！",
+        "还想和你一起出去ぴょん。"
+      ],
+      "clean": [
+        "谢谢你帮我清理ぴょん。",
+        "清爽多了ぴょん，谢谢ぴょん。"
+      ],
+      "petting": [
+        "被你摸摸，心里暖暖的ぴょん。",
+        "还想再靠近一点ぴょん。"
+      ],
+      "memory": {
+        "petting": "第{day}天，你摸了我很多次ぴょん。那些爱心好像还留着一点ぴょん。",
+        "food": "第{day}天，你选了{value}ぴょん。我还记得那个味道ぴょん。",
+        "outing": "第{day}天，我们去了{value}ぴょん。还想再一起去ぴょん。",
+        "clean": "第{day}天，你帮我清理了ぴょん。温柔的记录还在ぴょん。",
+        "fallback": "和你一起度过的记录，还留着一点ぴょん。"
+      }
+    }
+  },
+  "kangaroo_blue": {
+    "ja": {
+      "home": [
+        "今日はどこまで行こうかルー！",
+        "まだまだ遊べるルー！",
+        "ジャンプしたくなってきたルー！",
+        "じっとしてるのは苦手ルー！"
+      ],
+      "food": [
+        "{value}で元気いっぱいルー！",
+        "食べたら跳びたくなってきたルー！"
+      ],
+      "outing": [
+        "{value}まで、びよーんと行けたルー！",
+        "次はもっと遠くへ行きたいルー！"
+      ],
+      "clean": [
+        "きれいになって身軽だルー！",
+        "これでまた走れるルー！"
+      ],
+      "petting": [
+        "なでてもらうと力が出るルー！",
+        "もっと跳べそうだルー！"
+      ],
+      "memory": {
+        "petting": "{day}日目に、なでてくれた記録が残ってるルー。あれで元気が出たルー！",
+        "food": "{day}日目に、{value}を選んでくれたルー。あのあといっぱい動けたルー！",
+        "outing": "{day}日目に、{value}へ行ったルー。あの道、まだ覚えてるルー！",
+        "clean": "{day}日目に、きれいにしてくれたルー。身軽になった記録が残ってるルー！",
+        "fallback": "一緒に過ごした記録が、びよーんと残ってるルー。"
+      }
+    },
+    "en": {
+      "home": [
+        "How far should we go today, roo!",
+        "I can still play more, roo!",
+        "I feel like jumping, roo!",
+        "Staying still is hard for me, roo!"
+      ],
+      "food": [
+        "{value} gives me lots of energy, roo!",
+        "After eating, I want to jump, roo!"
+      ],
+      "outing": [
+        "We bounced all the way to {value}, roo!",
+        "Next time, I want to go even farther, roo!"
+      ],
+      "clean": [
+        "Now I feel light and ready, roo!",
+        "I can run again, roo!"
+      ],
+      "petting": [
+        "Your petting gives me power, roo!",
+        "I feel like I can jump higher, roo!"
+      ],
+      "memory": {
+        "petting": "On Day {day}, you petted me, roo. That made me feel strong, roo!",
+        "food": "On Day {day}, you chose {value}, roo. After that, I could move a lot, roo!",
+        "outing": "On Day {day}, we went to {value}, roo. I still remember that path, roo!",
+        "clean": "On Day {day}, you cleaned things up, roo. I still remember feeling light, roo!",
+        "fallback": "The record of our time together is bouncing back, roo."
+      }
+    },
+    "zh-CN": {
+      "home": [
+        "今天要跳到哪里去ルー！",
+        "我还可以继续玩ルー！",
+        "突然想跳起来ルー！",
+        "一直不动有点难ルー！"
+      ],
+      "food": [
+        "吃了{value}，能量满满ルー！",
+        "吃完就想跳起来ルー！"
+      ],
+      "outing": [
+        "我们びよーん地去了{value}ルー！",
+        "下次想去更远的地方ルー！"
+      ],
+      "clean": [
+        "变干净了，身体轻轻的ルー！",
+        "这样又可以跑了ルー！"
+      ],
+      "petting": [
+        "被你摸摸就有力气ルー！",
+        "感觉能跳得更高ルー！"
+      ],
+      "memory": {
+        "petting": "第{day}天，你摸过我的记录还在ルー。那让我变得很有精神ルー！",
+        "food": "第{day}天，你选了{value}ルー。后来我动了好多好多ルー！",
+        "outing": "第{day}天，我们去了{value}ルー。那条路我还记得ルー！",
+        "clean": "第{day}天，你帮我清理了ルー。变轻快的记录还在ルー！",
+        "fallback": "一起度过的记录，びよーん地留下来了ルー。"
+      }
+    }
+  },
+  "penguin_yellow": {
+    "ja": {
+      "home": [
+        "ちゃんと来てくれたペン。",
+        "今日も順番にやるペン。",
+        "ごはんの時間を忘れないペン。",
+        "ゆっくりで大丈夫ペン。"
+      ],
+      "food": [
+        "{value}を確認したペン。いただくペン。",
+        "ごはんの記録を残したペン。"
+      ],
+      "outing": [
+        "{value}へ、慎重に進むペン。",
+        "足あとをちゃんと覚えておくペン。"
+      ],
+      "clean": [
+        "きれいになったペン。確認完了ペン。",
+        "整えるのは大事ペン。"
+      ],
+      "petting": [
+        "なでられた記録を確認したペン。",
+        "落ち着くペン。ありがとうペン。"
+      ],
+      "memory": {
+        "petting": "{day}日目に、なでてくれたペン。落ち着いた記録が残っているペン。",
+        "food": "{day}日目に、{value}を選んでくれたペン。順番どおり覚えているペン。",
+        "outing": "{day}日目に、{value}へ行ったペン。足あとを確認できるペン。",
+        "clean": "{day}日目に、きれいにしてくれたペン。整った記録が残っているペン。",
+        "fallback": "これまでの記録を、順番に少し思い出しているペン。"
+      }
+    },
+    "en": {
+      "home": [
+        "You came properly, pen.",
+        "Let’s do things in order today, pen.",
+        "I will not forget food time, pen.",
+        "Slowly is okay, pen."
+      ],
+      "food": [
+        "I checked {value}. I will eat it, pen.",
+        "I recorded this food time, pen."
+      ],
+      "outing": [
+        "Let’s carefully go to {value}, pen.",
+        "I will remember our footprints, pen."
+      ],
+      "clean": [
+        "It is clean now. Check complete, pen.",
+        "Keeping things in order matters, pen."
+      ],
+      "petting": [
+        "I confirmed the petting record, pen.",
+        "I feel calm. Thank you, pen."
+      ],
+      "memory": {
+        "petting": "On Day {day}, you petted me, pen. The calm feeling is still recorded, pen.",
+        "food": "On Day {day}, you chose {value}, pen. I remember it in order, pen.",
+        "outing": "On Day {day}, we went to {value}, pen. I can still check those footprints, pen.",
+        "clean": "On Day {day}, you cleaned things up, pen. The tidy record remains, pen.",
+        "fallback": "I am remembering our records little by little, in order, pen."
+      }
+    },
+    "zh-CN": {
+      "home": [
+        "你准时来了ペン。",
+        "今天也按顺序来ペン。",
+        "不会忘记吃饭时间ペン。",
+        "慢慢来也没关系ペン。"
+      ],
+      "food": [
+        "确认了{value}ペン。我要吃了ペン。",
+        "吃饭的记录已经留下ペン。"
+      ],
+      "outing": [
+        "小心地前往{value}ペン。",
+        "脚印会好好记住ペン。"
+      ],
+      "clean": [
+        "变干净了ペン。确认完成ペン。",
+        "整理好很重要ペン。"
+      ],
+      "petting": [
+        "确认了被摸摸的记录ペン。",
+        "安定下来了ペン。谢谢ペン。"
+      ],
+      "memory": {
+        "petting": "第{day}天，你摸过我ペン。平静下来的记录还在ペン。",
+        "food": "第{day}天，你选了{value}ペン。我按顺序记得ペン。",
+        "outing": "第{day}天，我们去了{value}ペン。脚印还可以确认ペン。",
+        "clean": "第{day}天，你帮我清理了ペン。整洁的记录还在ペン。",
+        "fallback": "我正在按顺序，慢慢想起以前的记录ペン。"
+      }
+    }
+  },
+  "seal_gray": {
+    "ja": {
+      "home": [
+        "おかえりゴロ。",
+        "今日はここでのんびりしようゴロ。",
+        "そばにいるだけでもいいゴロ。",
+        "あわてなくてだいじょうぶゴロ。"
+      ],
+      "food": [
+        "{value}、ゆっくり食べるゴロ。",
+        "おなかがほっとしたゴロ。"
+      ],
+      "outing": [
+        "{value}でのんびりできたゴロ。",
+        "ゆっくり進むのもいいゴロ。"
+      ],
+      "clean": [
+        "きれいになって、ころんとできるゴロ。",
+        "すっきりしたゴロ。ありがとうゴロ。"
+      ],
+      "petting": [
+        "なでてもらうと、眠くなるゴロ。",
+        "もう少しこのままがいいゴロ。"
+      ],
+      "memory": {
+        "petting": "{day}日目に、なでてくれたゴロ。あの安心感が、まだ残っているゴロ。",
+        "food": "{day}日目に、{value}を選んでくれたゴロ。ゆっくりした時間を覚えているゴロ。",
+        "outing": "{day}日目に、{value}へ行ったゴロ。のんびりした記録が残っているゴロ。",
+        "clean": "{day}日目に、きれいにしてくれたゴロ。気持ちよかった記録が残っているゴロ。",
+        "fallback": "一緒にのんびりした記録が、少し残っているゴロ。"
+      }
+    },
+    "en": {
+      "home": [
+        "Welcome back, goro.",
+        "Let’s take it easy here today, goro.",
+        "Just being nearby is enough, goro.",
+        "No need to hurry, goro."
+      ],
+      "food": [
+        "I will eat {value} slowly, goro.",
+        "My tummy feels calm, goro."
+      ],
+      "outing": [
+        "I could relax at {value}, goro.",
+        "Moving slowly is nice too, goro."
+      ],
+      "clean": [
+        "Now it is clean, and I can curl up, goro.",
+        "I feel refreshed. Thank you, goro."
+      ],
+      "petting": [
+        "When you pet me, I get sleepy, goro.",
+        "I want to stay like this a little longer, goro."
+      ],
+      "memory": {
+        "petting": "On Day {day}, you petted me, goro. That safe feeling is still here, goro.",
+        "food": "On Day {day}, you chose {value}, goro. I remember that slow, gentle time, goro.",
+        "outing": "On Day {day}, we went to {value}, goro. That relaxing record remains, goro.",
+        "clean": "On Day {day}, you cleaned things up, goro. I remember how nice it felt, goro.",
+        "fallback": "A little record of relaxing together is still here, goro."
+      }
+    },
+    "zh-CN": {
+      "home": [
+        "欢迎回来ゴロ。",
+        "今天就在这里慢慢待着ゴロ。",
+        "只是在旁边也很好ゴロ。",
+        "不用着急也没关系ゴロ。"
+      ],
+      "food": [
+        "{value}，慢慢吃ゴロ。",
+        "肚子安心了ゴロ。"
+      ],
+      "outing": [
+        "在{value}很放松ゴロ。",
+        "慢慢前进也很好ゴロ。"
+      ],
+      "clean": [
+        "变干净了，可以舒舒服服躺着ゴロ。",
+        "清爽多了ゴロ。谢谢ゴロ。"
+      ],
+      "petting": [
+        "被你摸摸就想睡了ゴロ。",
+        "想再这样待一会儿ゴロ。"
+      ],
+      "memory": {
+        "petting": "第{day}天，你摸过我ゴロ。那种安心感还在ゴロ。",
+        "food": "第{day}天，你选了{value}ゴロ。我记得那段慢慢的时间ゴロ。",
+        "outing": "第{day}天，我们去了{value}ゴロ。悠闲的记录还在ゴロ。",
+        "clean": "第{day}天，你帮我清理了ゴロ。舒服的记录还在ゴロ。",
+        "fallback": "一起悠闲度过的记录，还留着一点ゴロ。"
+      }
+    }
+  },
+  "lizard_green": {
+    "ja": {
+      "home": [
+        "……キョロ。きたんだ。",
+        "今日もいる。キョロ。",
+        "べつに、なんでもない。キョロ。",
+        "キョロ、しっぽが少し動いた。"
+      ],
+      "food": [
+        "キョロ。{value}を見てる。",
+        "……食べた。キョロ。"
+      ],
+      "outing": [
+        "キョロ、{value}へ行った。",
+        "まわりを見てた。キョロ。"
+      ],
+      "clean": [
+        "キョロ。きれいになった。",
+        "……悪くない。キョロ。"
+      ],
+      "petting": [
+        "キョロ。なでたの、わかった。",
+        "……少しだけ、近い。キョロ。"
+      ],
+      "memory": {
+        "petting": "キョロ。{day}日目に、なでた記録がある。……少し覚えてる。",
+        "food": "キョロ。{day}日目に、{value}を選んだ記録がある。見てた。",
+        "outing": "{day}日目、{value}へ行った。キョロ。まわりの光を覚えてる。",
+        "clean": "キョロ。{day}日目に、きれいにされた記録がある。悪くなかった。",
+        "fallback": "キョロ。ここまでの記録が、少し残ってる。"
+      }
+    },
+    "en": {
+      "home": [
+        "...Kyoro. You came.",
+        "I am here today too. Kyoro.",
+        "It is nothing, really. Kyoro.",
+        "Kyoro, my tail moved a little."
+      ],
+      "food": [
+        "Kyoro. I am looking at {value}.",
+        "...I ate it. Kyoro."
+      ],
+      "outing": [
+        "Kyoro, we went to {value}.",
+        "I was watching around us. Kyoro."
+      ],
+      "clean": [
+        "Kyoro. It is clean now.",
+        "...Not bad. Kyoro."
+      ],
+      "petting": [
+        "Kyoro. I noticed you petted me.",
+        "...A little closer. Kyoro."
+      ],
+      "memory": {
+        "petting": "Kyoro. On Day {day}, there is a record that you petted me. ...I remember a little.",
+        "food": "Kyoro. On Day {day}, there is a record that you chose {value}. I was watching.",
+        "outing": "On Day {day}, we went to {value}. Kyoro. I remember the surrounding light.",
+        "clean": "Kyoro. On Day {day}, there is a record that you cleaned things up. It was not bad.",
+        "fallback": "Kyoro. A little of the record so far remains."
+      }
+    },
+    "zh-CN": {
+      "home": [
+        "……キョロ。你来了。",
+        "今天也在。キョロ。",
+        "没什么。キョロ。",
+        "キョロ，尾巴稍微动了一下。"
+      ],
+      "food": [
+        "キョロ。我在看{value}。",
+        "……吃了。キョロ。"
+      ],
+      "outing": [
+        "キョロ，去了{value}。",
+        "我一直在看周围。キョロ。"
+      ],
+      "clean": [
+        "キョロ。变干净了。",
+        "……还不错。キョロ。"
+      ],
+      "petting": [
+        "キョロ。我知道你摸了我。",
+        "……稍微靠近了一点。キョロ。"
+      ],
+      "memory": {
+        "petting": "キョロ。第{day}天，有你摸过我的记录。……我稍微记得。",
+        "food": "キョロ。第{day}天，有你选了{value}的记录。我看见了。",
+        "outing": "第{day}天，去了{value}。キョロ。我记得周围的光。",
+        "clean": "キョロ。第{day}天，有被清理过的记录。还不错。",
+        "fallback": "キョロ。到现在为止的记录，还剩下一点。"
+      }
+    }
+  },
+  "cat_purple": {
+    "ja": {
+      "home": [
+        "きみが来るの待ってた。もっとなでて。",
+        "ねえ、こっち見て。なでてほしいな。",
+        "今日はずっと一緒がいい。なでて。",
+        "急に走りたくなっちゃった！でもその前になでて。"
+      ],
+      "food": [
+        "{value}もいいけど、そのあと、なでてほしいな。",
+        "食べたよ。えらい？じゃあ、なでて。"
+      ],
+      "outing": [
+        "{value}も楽しかったけど、帰ったらなでて。",
+        "一緒に行ったんだから、もっとかまって。"
+      ],
+      "clean": [
+        "きれいになったから、なでていいよ。たくさんね。",
+        "すっきりした。ねえ、なでて。"
+      ],
+      "petting": [
+        "そうそう、もっとなでて。",
+        "いい感じ。もう一回なでて。",
+        "やっぱり、なでてもらうの好き。"
+      ],
+      "memory": {
+        "petting": "{day}日目に、たくさんなでてくれたよね。ねえ、またなでて。",
+        "food": "{day}日目に、{value}をくれたよね。覚えてるから、今度はなでて。",
+        "outing": "{day}日目に、{value}へ行ったよね。楽しかったから、もっとかまって。",
+        "clean": "{day}日目に、きれいにしてくれたよね。えらい？じゃあ、なでて。",
+        "fallback": "一緒にいた記録、残ってるよ。だから、もっとなでて。"
+      }
+    },
+    "en": {
+      "home": [
+        "I was waiting for you. Pet me more.",
+        "Hey, look over here. I want you to pet me.",
+        "I want to stay with you all day. Pet me.",
+        "I suddenly want to run! But pet me first."
+      ],
+      "food": [
+        "{value} is nice, but after that, I want petting.",
+        "I ate it. Was I good? Then pet me."
+      ],
+      "outing": [
+        "{value} was fun, but pet me when we get back.",
+        "We went together, so pay more attention to me."
+      ],
+      "clean": [
+        "Now that I’m clean, you may pet me. A lot.",
+        "I feel fresh. Hey, pet me."
+      ],
+      "petting": [
+        "Yes, yes, pet me more.",
+        "That feels good. Pet me again.",
+        "I really like being petted."
+      ],
+      "memory": {
+        "petting": "On Day {day}, you petted me a lot, remember? Hey, pet me again.",
+        "food": "On Day {day}, you gave me {value}, remember? I remember, so now pet me.",
+        "outing": "On Day {day}, we went to {value}, remember? It was fun, so pay more attention to me.",
+        "clean": "On Day {day}, you cleaned things up for me, remember? Was I good? Then pet me.",
+        "fallback": "The record of being together is still here. So, pet me more."
+      }
+    },
+    "zh-CN": {
+      "home": [
+        "我一直在等你。再摸摸我。",
+        "喂，看这边。我想被你摸摸。",
+        "今天想一直和你在一起。摸摸我。",
+        "突然想跑起来！不过先摸摸我。"
+      ],
+      "food": [
+        "{value}也不错，不过之后要摸摸我。",
+        "我吃完了。很乖吧？那就摸摸我。"
+      ],
+      "outing": [
+        "{value}也很好玩，不过回来后要摸摸我。",
+        "都一起去了，要多陪陪我。"
+      ],
+      "clean": [
+        "变干净了，所以可以摸摸我。要摸很多。",
+        "清爽了。喂，摸摸我。"
+      ],
+      "petting": [
+        "对，就是这样，再摸摸。",
+        "感觉不错。再摸一次。",
+        "果然，我喜欢被你摸摸。"
+      ],
+      "memory": {
+        "petting": "第{day}天，你摸了我很多次，对吧？喂，再摸摸我。",
+        "food": "第{day}天，你给了我{value}，对吧？我记得，所以这次摸摸我。",
+        "outing": "第{day}天，我们去了{value}，对吧？很开心，所以多陪陪我。",
+        "clean": "第{day}天，你帮我清理了，对吧？我很乖吧？那就摸摸我。",
+        "fallback": "一起待过的记录还在。所以，多摸摸我。"
+      }
+    }
+  }
+};
+
+// 既存関数との互換用。通常コメントは home を参照します。
+const CHARACTER_LINES = {};
+const MEMORY_COMMENT_TEMPLATES = {
+  ja:{
+    petting:"{day}日目に、たくさんなでてくれたね。あのハート、少し残っている気がするよ。",
+    food:"{day}日目に、{value}を選んでくれたね。あの時間、覚えているよ。",
+    outing:"{day}日目に、{value}へ行ったね。いっしょに歩いた記録が残っているよ。",
+    clean:"{day}日目に、きれいにしてくれたね。ちゃんと記録に残っているよ。",
+    fallback:"ここまで一緒に過ごした記録が、少し残っているよ。"
+  },
+  en:{
+    petting:"On Day {day}, you petted me many times. I feel like those hearts are still here.",
+    food:"On Day {day}, you chose {value}. I remember that time.",
+    outing:"On Day {day}, we went to {value}. That record is still here.",
+    clean:"On Day {day}, you cleaned things up for me. That record is still here.",
+    fallback:"Some records of the time we spent together are still here."
+  },
+  "zh-CN":{
+    petting:"第{day}天，你抚摸了我很多次。那些爱心好像还留着。",
+    food:"第{day}天，你选择了{value}。我还记得那段时间。",
+    outing:"第{day}天，我们去了{value}。一起走过的记录还在。",
+    clean:"第{day}天，你帮我清理了。这个记录还在。",
+    fallback:"到现在为止一起度过的记录，还稍微留着。"
+  }
+};
+
+const translations = {
+  ja: {
+    langName:"日本語", appTitle:"ちいさな存在と、5日間", chooseLanguage:"言語を選んでください", next:"次へ", back:"戻る", start:"はじめる", continue:"つづける",
+    researchIdTitle:"研究IDの入力", researchIdDesc:"研究IDを入力してください。未入力の場合は、自動で研究IDを作成します。氏名や学校名など、個人が特定される情報は入力しないでください。", researchIdPlaceholder:"例：R-20260512-AB12", useThisId:"このIDで進む", autoId:"未入力のため研究IDを自動生成しました。",
+    explanationTitle:"研究について", explanationText:"この研究では、ブラウザ型のお世話ゲームを通して、小さなデジタル存在との関わり方を調べます。ゲーム中には、関わっていたデジタル存在の死または消失に相当する場面が含まれることがあります。また、その後に再生成された存在と関わる場面があります。悲しさ、さみしさ、違和感を覚える可能性があります。つらいと感じた場合は、いつでも途中でやめられます。ゲーム中に個人が特定される情報は入力しないでください。",
+    consentTitle:"同意確認", consentIntro:"すべて確認した場合だけ、ゲームを開始できます。", consentItems:["研究の目的と内容を確認しました。","ゲーム中に、死または消失に相当する場面が含まれることを理解しました。","その後、再生成された存在と関わる場面があることを理解しました。","悲しさ、さみしさ、違和感を覚える可能性があることを理解しました。","つらいと感じた場合は、いつでも途中でやめられることを理解しました。","ゲーム中の行動や質問紙回答が、個人が特定されない形で研究に使われることを理解しました。"], agreeStart:"同意してゲームを始める",
+    macaronTitle:"マカロンを1つ選んでください", macaronDesc:"選んだマカロンから、ちいさな存在が生まれます。", selected:"選択", birthWaitTitle:"マカロンの中で、光がゆっくり動いています", waitDesc:"生まれるまで、少しだけ待ってください。", seconds:"秒", openLetter:"手紙を読む",
+    letterTitle:"小さな手紙", letterText:"こんにちは。このマカロンの中には、これから生まれる小さな存在が眠っています。生まれたら、少しずつお世話をしてあげてください。ごはんを選んだり、お出かけしたり、なでたり、きれいにしてあげることができます。あなたとの時間が、この子の毎日になります。", toBirth:"誕生を見守る",
+    birthTitle:"生まれました", birthDesc:"光の中から、ちいさな存在が現れました。", day:"日目", affection:"愛情メーター", actionsToday:"今日のお世話", requiredActions:"今日を終えるには、あと {n} 回お世話してください。", endToday:"今日のお世話を終える", food:"ごはん", outing:"お出かけ", clean:"きれいにする", petting:"なでる", done:"できました", returnHome:"ホームに戻る",
+    homeMsgHigh:["見つけてくれて、うれしそうです。","昨日の時間を、少し覚えているように見えます。","そばに来ると、小さく光ります。","また会えたことを、ゆっくり喜んでいるようです。"], homeMsgLow:["静かにこちらを見ています。","お世話を待っています。","小さく反応しました。","画面の中で、ゆっくり動いています。"],
+    foodTitle:"ごはんを選んでください", foodChoices:["星のクッキー","月のスープ"], foodReactHigh:"うれしそうに食べています。小さな光がふわっと広がりました。", foodReactLow:"食べました。", outingTitle:"お出かけ先を選んでください", outingChoices:["星の丘","光の庭"], outingReactHigh:"一緒に歩いた時間を楽しんでいるようです。", outingReactLow:"お出かけしました。",
+    cleanTitle:"きれいにしてあげてください", cleanDesc:"画面の中の💩をタップして片づけてください。", cleanComplete:"きれいになりました。", pettingTitle:"なでてください", pettingDesc:"ちいさな存在の近くをタッチ、またはドラッグするとハートが出ます。", pettingComplete:"やさしくなでました。",
+    dayCompleteTitle:"今日のお世話はここまでです", comeBack:"また次の日に会いに来てください。", devNext:"開発用：次の日へ進む", beforeLossTitle:"今日のお世話は終わりました", beforeLossText:"○○は、少し静かにあなたを見ています。", stayClose:"そばにいる", lossTitle:"反応がありません", lossText:"○○の体が、少しずつ薄くなっていきます。小さな光が、画面の中に広がります。さっきまでそこにいた気配は、静かに消えていきました。", toRegen:"再生成へ進む",
+    regenWaitTitle:"再生成を開始します", regenInherit:"これまでの状態をもとに、再生成します。", regenNew:"新しい状態から、生成します。", regenTitle:"再生成されました", regenText:"光の中から、存在が再び現れました。", startDay4:"4日目のお世話へ進む",
+    surveyTitle:"5日間のお世話はここまでです", surveyText:"最後に、感じたことについてアンケートに回答してください。", goSurvey:"最後のアンケートへ進む", finish:"終了しました", reset:"リセット", downloadCsv:"CSVログ", downloadJson:"JSONログ", logPreview:"ログ確認", urlNote:"GoogleフォームURLはコード上部の SURVEY_URL で変更できます。"
+  },
+  en: {
+    langName:"English", appTitle:"Five days with a small being", chooseLanguage:"Choose a language", next:"Next", back:"Back", start:"Start", continue:"Continue",
+    researchIdTitle:"Research ID", researchIdDesc:"Enter your research ID. If left blank, an ID will be generated automatically. Do not enter your name, school, address, or contact details.", researchIdPlaceholder:"e.g., R-20260512-AB12", useThisId:"Continue with this ID", autoId:"A research ID was generated automatically.",
+    explanationTitle:"About this study", explanationText:"This browser-based care game studies how people interact with a small digital being. The game may include a scene corresponding to death or disappearance of the digital being, followed by interaction with a regenerated being. You may feel sadness, loneliness, or discomfort. You may stop at any time. Do not enter personally identifying information during the game.",
+    consentTitle:"Consent", consentIntro:"You can start only after confirming all items.", consentItems:["I have read the purpose and content of the study.","I understand that the game may include a scene corresponding to death or disappearance.","I understand that I will later interact with a regenerated being.","I understand that I may feel sadness, loneliness, or discomfort.","I understand that I may stop at any time.","I understand that game actions and survey responses may be used for research in a non-identifiable form."], agreeStart:"Agree and start",
+    macaronTitle:"Choose one macaron", macaronDesc:"A small being will be born from the macaron you choose.", selected:"Selected", birthWaitTitle:"A soft light is moving inside the macaron", waitDesc:"Please wait a little until birth.", seconds:"sec", openLetter:"Read the letter",
+    letterTitle:"A small letter", letterText:"Hello. A small being is sleeping inside this macaron. When it is born, please take care of it little by little. You can choose food, go out, pet it, and keep it clean. The time with you will become this being’s everyday life.", toBirth:"Watch the birth",
+    birthTitle:"It was born", birthDesc:"A small being appeared from the light.", day:"Day", affection:"Affection meter", actionsToday:"Care today", requiredActions:"Do {n} more care action(s) to finish today.", endToday:"Finish today", food:"Food", outing:"Go out", clean:"Clean", petting:"Pet", done:"Done", returnHome:"Back home",
+    homeMsgHigh:["It looks happy that you found it.","It seems to remember a little of yesterday.","It softly glows when you come close.","It seems gently happy to meet you again."], homeMsgLow:["It quietly looks at you.","It is waiting for care.","It reacted slightly.","It moves slowly on the screen."],
+    foodTitle:"Choose food", foodChoices:["Star cookie","Moon soup"], foodReactHigh:"It eats happily. A small light spreads softly.", foodReactLow:"It ate.", outingTitle:"Choose a place to go", outingChoices:["Star hill","Light garden"], outingReactHigh:"It seems to enjoy the time walking together.", outingReactLow:"You went out.",
+    cleanTitle:"Clean it up", cleanDesc:"Tap the poop icons on the screen.", cleanComplete:"All clean.", pettingTitle:"Pet gently", pettingDesc:"Touch or drag near the small being to make hearts appear.", pettingComplete:"You gently petted it.",
+    dayCompleteTitle:"That is all for today", comeBack:"Please come back the next day.", devNext:"Dev: go to next day", beforeLossTitle:"Today’s care is finished", beforeLossText:"○○ is quietly looking at you.", stayClose:"Stay nearby", lossTitle:"No response", lossText:"○○’s body slowly becomes faint. Small lights spread across the screen. The presence that was there a moment ago quietly disappears.", toRegen:"Proceed to regeneration",
+    regenWaitTitle:"Regeneration starts", regenInherit:"Regenerating based on the previous state.", regenNew:"Generating from a new state.", regenTitle:"Regenerated", regenText:"The being appeared again from the light.", startDay4:"Go to Day 4 care",
+    surveyTitle:"The five days of care are complete", surveyText:"Finally, please answer the survey about how you felt.", goSurvey:"Go to final survey", finish:"Finished", reset:"Reset", downloadCsv:"CSV log", downloadJson:"JSON log", logPreview:"Log preview", urlNote:"You can change the Google Form URL in SURVEY_URL near the top of the code."
+  },
+  "zh-CN": {
+    langName:"简体中文", appTitle:"与小小存在相处的五天", chooseLanguage:"请选择语言", next:"下一步", back:"返回", start:"开始", continue:"继续",
+    researchIdTitle:"研究ID", researchIdDesc:"请输入研究ID。未输入时会自动生成。请不要输入姓名、学校、地址或联系方式等个人信息。", researchIdPlaceholder:"例：R-20260512-AB12", useThisId:"使用此ID继续", autoId:"已自动生成研究ID。",
+    explanationTitle:"关于本研究", explanationText:"本研究通过浏览器中的照护游戏，了解人们如何与一个小小的数字存在互动。游戏中可能包含相当于死亡或消失的场景，之后也会出现与再生成存在互动的场景。你可能会感到悲伤、寂寞或不适。感到不舒服时可以随时停止。游戏中请不要输入可识别个人的信息。",
+    consentTitle:"同意确认", consentIntro:"确认所有项目后才可以开始游戏。", consentItems:["我已确认研究目的与内容。","我理解游戏中可能包含相当于死亡或消失的场景。","我理解之后会与再生成的存在互动。","我理解可能会感到悲伤、寂寞或不适。","我理解可以随时中止。","我理解游戏行为和问卷回答会以无法识别个人的形式用于研究。"], agreeStart:"同意并开始游戏",
+    macaronTitle:"请选择一个马卡龙", macaronDesc:"你选择的马卡龙里会诞生一个小小的存在。", selected:"已选择", birthWaitTitle:"马卡龙中有柔和的光在移动", waitDesc:"请稍等，直到它诞生。", seconds:"秒", openLetter:"阅读信件",
+    letterTitle:"一封小信", letterText:"你好。这个马卡龙里，睡着一个即将出生的小小存在。出生后，请一点一点照顾它。你可以选择食物、外出、抚摸它，也可以帮它保持干净。与你在一起的时间，会成为它的每一天。", toBirth:"守候诞生",
+    birthTitle:"诞生了", birthDesc:"一个小小的存在从光中出现了。", day:"第", affection:"亲近度", actionsToday:"今天的照护", requiredActions:"还需要照护 {n} 次才能结束今天。", endToday:"结束今天的照护", food:"食物", outing:"外出", clean:"清理", petting:"抚摸", done:"完成", returnHome:"返回主页",
+    homeMsgHigh:["它似乎很高兴被你发现。","它好像稍微记得昨天的时间。","你靠近时，它会轻轻发光。","它似乎温柔地高兴着再次见到你。"], homeMsgLow:["它静静地看着你。","它正在等待照护。","它轻轻反应了一下。","它在画面中慢慢移动。"],
+    foodTitle:"请选择食物", foodChoices:["星星饼干","月亮汤"], foodReactHigh:"它开心地吃着，小小的光轻轻扩散。", foodReactLow:"它吃了。", outingTitle:"请选择外出去处", outingChoices:["星之丘","光之庭"], outingReactHigh:"它似乎享受一起散步的时间。", outingReactLow:"已经外出了。",
+    cleanTitle:"帮它清理", cleanDesc:"点击画面中的💩并清理掉。", cleanComplete:"变干净了。", pettingTitle:"请轻轻抚摸", pettingDesc:"触摸或拖动小小存在附近，会出现爱心。", pettingComplete:"你轻轻抚摸了它。",
+    dayCompleteTitle:"今天的照护到这里", comeBack:"请明天再来看它。", devNext:"开发用：进入下一天", beforeLossTitle:"今天的照护结束了", beforeLossText:"○○安静地看着你。", stayClose:"待在旁边", lossTitle:"没有反应", lossText:"○○的身体一点点变淡。小小的光在画面中扩散。刚才还在那里的气息，安静地消失了。", toRegen:"进入再生成",
+    regenWaitTitle:"开始再生成", regenInherit:"根据此前的状态进行再生成。", regenNew:"从新的状态开始生成。", regenTitle:"已再生成", regenText:"存在从光中再次出现了。", startDay4:"进入第4天照护",
+    surveyTitle:"五天的照护到这里结束", surveyText:"最后，请回答关于感受的问卷。", goSurvey:"进入最后问卷", finish:"已结束", reset:"重置", downloadCsv:"CSV日志", downloadJson:"JSON日志", logPreview:"日志预览", urlNote:"Google表单URL可在代码上方的 SURVEY_URL 中修改。"
+  }
+};
+
+let gameState = loadState();
+let event_log = loadLog();
+let countdownTimer = null;
+
+function now(){ return new Date().toISOString(); }
+function t(key){ const lang = gameState.language || "ja"; return translations[lang]?.[key] ?? translations.ja[key] ?? key; }
+function tt(obj){ const lang = gameState.language || "ja"; return obj?.[lang] ?? obj?.ja ?? ""; }
+function getSpeechLabel(kind="normal"){
+  const labels = {
+    normal:{ ja:"ひとこと", en:"Message", "zh-CN":"一句话" },
+    memory:{ ja:"前の記録がよみがえる", en:"A past record returns", "zh-CN":"以前的记录浮现" }
+  };
+  const lang = gameState.language || "ja";
+  return labels[kind]?.[lang] || labels[kind]?.ja || labels.normal.ja;
+}
+function getPersonalityData(characterId){
+  const lang = gameState.language || "ja";
+  const data = CHARACTER_PERSONALITY_TEXTS[characterId];
+  if(!data) return null;
+  return data[lang] || data.ja || null;
+}
+function interpolateLine(line, vars={}){
+  return String(line || "")
+    .replaceAll("{day}", vars.day ?? "")
+    .replaceAll("{value}", vars.value ?? "");
+}
+function esc(s){ return String(s ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c])); }
+function getBeingDisplayName(){
+  const labels = { ja:"ちいさな存在", en:"Small being", "zh-CN":"小小的存在" };
+  return labels[gameState.language || "ja"] || labels.ja;
+}
+function getBeingInlineName(){
+  const labels = { ja:"この子", en:"this being", "zh-CN":"这个小小存在" };
+  return labels[gameState.language || "ja"] || labels.ja;
+}
+function replaceName(text){ return String(text).replaceAll("○○", getBeingInlineName()); }
+
+function defaultState(){
+  return { language:null, research_id:null, screen:"01_language", consent:false, explanation_viewed:false, start_time:null, start_date:null, condition_id:null, identity_condition_id:null, macaron_color:null, character_id:null, day:1, affection:0, visit_count:0, dayActions:{}, dayComplete:{}, regenerated:false, last_message_id:null, version:"prototype_v5_multilingual_speech" };
+}
+function loadState(){ try{ return { ...defaultState(), ...(JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}) }; }catch(e){ return defaultState(); } }
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState)); updateStatus(); updateDevPanel(); }
+function loadLog(){ try{ return JSON.parse(localStorage.getItem(LOG_KEY)) || []; }catch(e){ return []; } }
+function saveLog(){ localStorage.setItem(LOG_KEY, JSON.stringify(event_log)); }
+function loadRemoteQueue(){ try{ return JSON.parse(localStorage.getItem(REMOTE_LOG_QUEUE_KEY)) || []; }catch(e){ return []; } }
+function saveRemoteQueue(queue){ localStorage.setItem(REMOTE_LOG_QUEUE_KEY, JSON.stringify(queue)); }
+function makeRemotePayload(row){
+  const details = row.details || {};
+  const displayId = getDisplayCharacterId() || "";
+  const motionId = getMotionCharacterId() || "";
+  const personaId = details.persona_character_id || getPersonalityCharacterId() || "";
+  const choice = details.food_choice || details.outing_choice || "";
+  const characterComment = details.character_comment || details.character_line || "";
+  const identityCond = getIdentityCondition();
+  return {
+    ...row,
+    language: gameState.language || "",
+    affection: gameState.affection ?? "",
+    action: details.action || row.event_type || "",
+    choice,
+    character_comment: characterComment,
+    speech_kind: details.speech_kind || "",
+    macaron_color: gameState.macaron_color || "",
+    identity_condition_id: gameState.identity_condition_id || "",
+    display_character_id: displayId,
+    motion_character_id: motionId,
+    persona_character_id: personaId,
+    appearance_changed: isAfterRegeneration() ? displayId !== (gameState.character_id || "") : false,
+    motion_changed: isAfterRegeneration() ? motionId !== (gameState.character_id || "") : false,
+    memory_log_enabled: !!identityCond.memoryLog,
+    details_json: JSON.stringify(details),
+    user_agent: navigator.userAgent,
+    app_version: gameState.version || "prototype_v5_multilingual_speech"
+  };
+}
+function sendRemoteLog(row){
+  if(!LOG_ENDPOINT || !/^https?:\/\//.test(LOG_ENDPOINT)) return;
+  const payload = makeRemotePayload(row);
+  fetch(LOG_ENDPOINT, {
+    method:"POST",
+    mode:"no-cors",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify(payload),
+    keepalive:true
+  }).catch(() => {
+    const queue = loadRemoteQueue();
+    queue.push(payload);
+    saveRemoteQueue(queue.slice(-300));
+  });
+}
+function flushRemoteLogQueue(){
+  if(!LOG_ENDPOINT || !/^https?:\/\//.test(LOG_ENDPOINT)) return;
+  const queue = loadRemoteQueue();
+  if(!queue.length) return;
+  saveRemoteQueue([]);
+  queue.forEach(payload => {
+    fetch(LOG_ENDPOINT, {
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify(payload),
+      keepalive:true
+    }).catch(() => {
+      const retry = loadRemoteQueue();
+      retry.push(payload);
+      saveRemoteQueue(retry.slice(-300));
+    });
+  });
+}
+window.addEventListener("online", flushRemoteLogQueue);
+function logEvent(event_type, details={}){
+  const row = {
+    timestamp:now(), event_type, screen_id:gameState.screen, day:gameState.day || null,
+    research_id:gameState.research_id || null,
+    condition_id:gameState.condition_id || null,
+    identity_condition_id:gameState.identity_condition_id || null,
+    character_id:gameState.character_id || null,
+    display_character_id:getDisplayCharacterId(),
+    motion_character_id:getMotionCharacterId(),
+    details
+  };
+  event_log.push(row); saveLog(); sendRemoteLog(row); updateDevPanel();
+}
+function showToast(msg){ const el = document.getElementById("toast"); el.textContent = msg; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"), 1800); }
+function getUrlParam(name){ return URL_PARAMS.get(name); }
+function randomId(){ return "R-" + new Date().toISOString().replace(/[-:.TZ]/g,"").slice(0,14) + "-" + Math.random().toString(36).slice(2,6).toUpperCase(); }
+function randomCondition(){
+  const forced = ADMIN_MODE ? (getUrlParam("condition") || "").toUpperCase() : "";
+  if(CONDITIONS[forced]) return forced;
+  const keys = Object.keys(CONDITIONS);
+  return keys[Math.floor(Math.random()*keys.length)];
+}
+function randomIdentityCondition(){
+  // 参加者用URLでは、identity=A1 などを書かれても無視します。
+  // 管理者確認モード（?admin=1）の時だけ、条件固定ができます。
+  const forced = ADMIN_MODE ? (getUrlParam("identity") || getUrlParam("identity_condition") || getUrlParam("attribute") || "").toUpperCase() : "";
+  if(IDENTITY_CONDITIONS[forced]) return forced;
+  const keys = Object.keys(IDENTITY_CONDITIONS);
+  return keys[Math.floor(Math.random()*keys.length)];
+}
+function go(screen){ if(countdownTimer) clearInterval(countdownTimer); gameState.screen = screen; saveState(); render(); }
+function updateStatus(){
+  const status = document.getElementById("status");
+  const parts = [];
+  if(gameState.language) parts.push(`<span class="pill">${esc(t("langName"))}</span>`);
+  if(gameState.research_id) parts.push(`<span class="pill">ID ${esc(gameState.research_id)}</span>`);
+  if(DEV_MODE && gameState.condition_id) parts.push(`<span class="pill">${esc(gameState.condition_id)}</span>`);
+  if(DEV_MODE && gameState.identity_condition_id) parts.push(`<span class="pill">${esc(gameState.identity_condition_id)}</span>`);
+  if(gameState.consent) parts.push(`<span class="pill">${esc(t("day"))}${esc(gameState.day)}</span>`);
+  status.innerHTML = parts.join("");
+}
+function isAfterRegeneration(){ return !!gameState.regenerated || (gameState.day || 1) >= 4; }
+function getIdentityCondition(){ return IDENTITY_CONDITIONS[gameState.identity_condition_id] || IDENTITY_CONDITIONS.A1; }
+function getPairedCharacterId(id){ return REGENERATION_PAIR_MAP[id] || id; }
+function getDisplayCharacterId(){
+  const originalId = gameState.character_id || null;
+  if(!originalId) return null;
+  if(!isAfterRegeneration()) return originalId;
+  const cond = getIdentityCondition();
+  return cond.appearance === "different" ? getPairedCharacterId(originalId) : originalId;
+}
+function getMotionCharacterId(){
+  const originalId = gameState.character_id || null;
+  if(!originalId) return null;
+  if(!isAfterRegeneration()) return originalId;
+  const cond = getIdentityCondition();
+  return cond.motion === "different" ? getPairedCharacterId(originalId) : originalId;
+}
+function getCharacter(){ return CHARACTERS[getDisplayCharacterId()] || null; }
+function getOriginalCharacter(){ return CHARACTERS[gameState.character_id] || null; }
+function getCharacterName(){ return getBeingDisplayName(); }
+function getPersonalityCharacterId(){
+  const originalId = gameState.character_id || null;
+  if(!originalId) return null;
+  if(!isAfterRegeneration()) return originalId;
+  const cond = getIdentityCondition();
+  // 条件②③では、容姿が変わっても、元の子の動作・言葉づかい・記録の連続性を残す。
+  if(cond.keepOriginalBehaviorAndLog) return originalId;
+  return getMotionCharacterId() || originalId;
+}
+function getActionComment(actionType, value=""){
+  const personaId = getPersonalityCharacterId() || getMotionCharacterId() || gameState.character_id;
+  const data = getPersonalityData(personaId);
+  const arr = data?.[actionType] || [];
+  if(!arr.length) return "";
+  const idx = ((gameState.day || 1) + completedActionsCount() + event_log.length) % arr.length;
+  return interpolateLine(arr[idx], { value });
+}
+function getCharacterMotionClass(state="happy", extraClass=""){
+  // 通常のhappy表示だけに、現在の「動作条件」に対応した動きを付ける。
+  // 誕生、睡眠、悲しみ、消失などの場面では、その場面専用の演出を優先する。
+  if(state !== "happy") return "";
+  if(/birth|fadeout|sleep|sad/.test(String(extraClass))) return "";
+  const motionMap = {
+    rabbit_pink:"pet-motion-rabbit",
+    kangaroo_blue:"pet-motion-kangaroo",
+    penguin_yellow:"pet-motion-penguin",
+    seal_gray:"pet-motion-seal",
+    lizard_green:"pet-motion-lizard",
+    cat_purple:"pet-motion-cat"
+  };
+  return motionMap[getMotionCharacterId()] || "";
+}
+function characterImg(state="happy", extraClass=""){
+  const ch = getCharacter();
+  if(!ch) return `<div class="char-fallback">✦</div>`;
+  const src = ch.images[state] || ch.images.happy;
+  const motionClass = getCharacterMotionClass(state, extraClass);
+  return `<img class="pet-img ${esc(extraClass)} ${esc(motionClass)}" src="${esc(src)}" alt="${esc(getBeingDisplayName())}" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden')"><div class="char-fallback hidden ${esc(extraClass)} ${esc(motionClass)}">${esc(ch.emoji || "✦")}</div>`;
+}
+function characterBehaviorLine(){
+  const behaviorId = getPersonalityCharacterId() || getMotionCharacterId() || gameState.character_id;
+  const data = getPersonalityData(behaviorId);
+  const lines = data?.home || [];
+  if(!lines.length) return messageForHomeFallback();
+  const idx = ((gameState.day || 1) + completedActionsCount()) % lines.length;
+  return interpolateLine(lines[idx]);
+}
+function messageForHomeFallback(){
+  const cond = CONDITIONS[gameState.condition_id] || CONDITIONS.C1;
+  const arr = cond.engagement === "high" ? t("homeMsgHigh") : t("homeMsgLow");
+  const idx = ((gameState.day || 1) + completedActionsCount()) % arr.length;
+  return arr[idx];
+}
+function buildCareMemoryComment(){
+  const pastRows = event_log.filter(r => (r.day || 0) <= 3);
+  const petRows = pastRows.filter(r => r.event_type === "petting");
+  const foodRows = pastRows.filter(r => r.event_type === "food_choice");
+  const outingRows = pastRows.filter(r => r.event_type === "outing_choice");
+  const cleanRows = pastRows.filter(r => r.event_type === "poop_clean");
+  let chosen = null;
+  const cycle = ((gameState.day || 4) + completedActionsCount()) % 4;
+  if(cycle === 0 && petRows.length) chosen = {type:"petting", row:petRows[petRows.length-1]};
+  else if(cycle === 1 && foodRows.length) chosen = {type:"food", row:foodRows[foodRows.length-1]};
+  else if(cycle === 2 && outingRows.length) chosen = {type:"outing", row:outingRows[outingRows.length-1]};
+  else if(cleanRows.length) chosen = {type:"clean", row:cleanRows[cleanRows.length-1]};
+  else if(foodRows.length) chosen = {type:"food", row:foodRows[foodRows.length-1]};
+  else if(outingRows.length) chosen = {type:"outing", row:outingRows[outingRows.length-1]};
+  else if(petRows.length) chosen = {type:"petting", row:petRows[petRows.length-1]};
+
+  const personaId = getPersonalityCharacterId() || gameState.character_id;
+  const memory = getPersonalityData(personaId)?.memory || {};
+  if(!chosen) return interpolateLine(memory.fallback || MEMORY_COMMENT_TEMPLATES[gameState.language || "ja"]?.fallback || MEMORY_COMMENT_TEMPLATES.ja.fallback);
+
+  const day = chosen.row.day || 1;
+  const details = chosen.row.details || {};
+  const value = details.food_choice || details.outing_choice || "";
+  const template = memory[chosen.type] || memory.fallback || MEMORY_COMMENT_TEMPLATES[gameState.language || "ja"]?.fallback || MEMORY_COMMENT_TEMPLATES.ja.fallback;
+  return interpolateLine(template, { day, value });
+}
+function screenShell(html, cls=""){
+  document.getElementById("app").className = "screen " + cls;
+  document.getElementById("app").innerHTML = html;
+  updateStatus(); updateDevPanel();
+}
+function sparkles(){ return `<span class="sparkle"></span><span class="sparkle"></span><span class="sparkle"></span><span class="sparkle"></span><span class="sparkle"></span>`; }
+
+function render(){
+  const s = gameState.screen || "01_language";
+  const map = {
+    "01_language": renderLanguage,
+    "02_research_id": renderResearchId,
+    "03_explanation": renderExplanation,
+    "04_consent": renderConsent,
+    "05_macaron_select": renderMacaronSelect,
+    "06_birth_wait": renderBirthWait,
+    "07_letter": renderLetter,
+    "08_birth": renderBirth,
+    "09_day_home": renderDayHome,
+    "10_food": renderFood,
+    "11_outing": renderOuting,
+    "12_clean": renderClean,
+    "13_petting": renderPetting,
+    "14_day_complete": renderDayComplete,
+    "15_before_disappearance": renderBeforeDisappearance,
+    "16_disappearance": renderDisappearance,
+    "17_regeneration_wait": renderRegenerationWait,
+    "18_regeneration": renderRegeneration,
+    "19_survey_transition": renderSurveyTransition,
+    "20_end": renderEnd
+  };
+  (map[s] || renderLanguage)();
+}
+
+function renderLanguage(){
+  screenShell(`
+    <div class="center">
+      <h1>4,320N</h1>
+      <p class="lead">${esc(t("chooseLanguage"))}</p>
+      <div class="grid three" style="margin-top:28px">
+        ${["ja","en","zh-CN"].map(lang => `<button class="language-card primary" onclick="selectLanguage('${lang}')">${esc(translations[lang].langName)}</button>`).join("")}
+      </div>
+    </div>`);
+}
+function selectLanguage(lang){
+  gameState.language = lang; gameState.start_time = gameState.start_time || now(); gameState.screen = "02_research_id";
+  logEvent("language", { language:lang, start_time:gameState.start_time }); saveState(); render();
+}
+function renderResearchId(){
+  screenShell(`
+    <h2>${esc(t("researchIdTitle"))}</h2>
+    <p>${esc(t("researchIdDesc"))}</p>
+    <div class="card" style="margin:20px 0">
+      <input id="rid" type="text" autocomplete="off" placeholder="${esc(t("researchIdPlaceholder"))}" value="${esc(gameState.research_id || "")}">
+    </div>
+    <div class="row right"><button class="primary" onclick="saveResearchId()">${esc(t("useThisId"))}</button></div>
+  `);
+}
+function saveResearchId(){
+  const input = document.getElementById("rid").value.trim();
+  const generated = !input;
+  gameState.research_id = input || randomId();
+  gameState.id_created_time = now();
+  gameState.screen = "03_explanation";
+  logEvent("research_id", { research_id:gameState.research_id, generated, id_created_time:gameState.id_created_time });
+  saveState(); if(generated) showToast(t("autoId")); render();
+}
+function renderExplanation(){
+  screenShell(`
+    <h2>${esc(t("explanationTitle"))}</h2>
+    <div class="card"><p>${esc(t("explanationText"))}</p></div>
+    <div class="row right" style="margin-top:22px"><button class="primary" onclick="viewedExplanation()">${esc(t("next"))}</button></div>
+  `);
+}
+function viewedExplanation(){
+  gameState.explanation_viewed = true; gameState.explanation_time = now(); gameState.screen = "04_consent";
+  logEvent("explanation_viewed", { explanation_time:gameState.explanation_time }); saveState(); render();
+}
+function renderConsent(){
+  const items = t("consentItems");
+  screenShell(`
+    <h2>${esc(t("consentTitle"))}</h2>
+    <p>${esc(t("consentIntro"))}</p>
+    <div class="checklist">
+      ${items.map((item,i)=>`<label class="checkitem"><input type="checkbox" class="consentBox" onchange="updateConsentButton()"><span>${esc(item)}</span></label>`).join("")}
+    </div>
+    <div class="row right"><button id="agreeBtn" class="primary" disabled onclick="agreeConsent()">${esc(t("agreeStart"))}</button></div>
+  `);
+}
+function updateConsentButton(){
+  const all = [...document.querySelectorAll(".consentBox")].every(x=>x.checked);
+  document.getElementById("agreeBtn").disabled = !all;
+}
+function agreeConsent(){
+  gameState.consent = true; gameState.consent_time = now(); gameState.screen = "05_macaron_select";
+  logEvent("consent_checked", { consent_checked:true, consent_time:gameState.consent_time }); saveState(); render();
+}
+function renderMacaronSelect(){
+  screenShell(`
+    <h2>${esc(t("macaronTitle"))}</h2>
+    <p>${esc(t("macaronDesc"))}</p>
+    <div class="macaron-grid">
+      ${MACARONS.map(m=>`
+        <div class="macaron-card" onclick="selectMacaron('${esc(m.id)}')">
+          <div class="macaron" style="--macaron:${esc(m.css)}"></div>
+          <strong>${esc(tt(m.label))}</strong>
+        </div>`).join("")}
+    </div>`);
+}
+function selectMacaron(macaronId){
+  const m = MACARONS.find(x=>x.id===macaronId);
+  if(!m) return;
+  gameState.macaron_color = m.color;
+  gameState.macaron_id = m.id;
+  gameState.character_id = m.character_id;
+  gameState.condition_id = gameState.condition_id || randomCondition();
+  gameState.identity_condition_id = gameState.identity_condition_id || randomIdentityCondition();
+  gameState.start_date = gameState.start_date || new Date().toISOString().slice(0,10);
+  gameState.birth_wait_start = now();
+  gameState.screen = "06_birth_wait";
+  logEvent("macaron_selected", { macaron_color:m.color, macaron_id:m.id, original_character_id:m.character_id, condition_id:gameState.condition_id, identity_condition_id:gameState.identity_condition_id, identity_condition_label:IDENTITY_CONDITIONS[gameState.identity_condition_id]?.label || "", random_assignment:true, admin_mode:ADMIN_MODE });
+  saveState(); render();
+}
+function renderBirthWait(){
+  const seconds = DEV_MODE ? 5 : 60;
+  screenShell(`
+    <div class="center">
+      ${sparkles()}
+      <h2>${esc(t("birthWaitTitle"))}</h2>
+      <div class="macaron" style="--macaron:${esc((MACARONS.find(x=>x.id===gameState.macaron_id)||MACARONS[0]).css)};margin:32px auto;transform:scale(1.3);animation:floaty 2s ease-in-out infinite"></div>
+      <div id="count" class="countdown">${seconds}</div>
+      <p>${esc(t("waitDesc"))}</p>
+    </div>`);
+  startCountdown(seconds, () => {
+    gameState.birth_wait_end = now(); logEvent("birth_wait_end", { birth_wait_start:gameState.birth_wait_start, birth_wait_end:gameState.birth_wait_end }); saveState(); go("07_letter");
+  });
+}
+function startCountdown(seconds, onDone){
+  if(countdownTimer) clearInterval(countdownTimer);
+  let left = seconds;
+  countdownTimer = setInterval(()=>{
+    left -= 1;
+    const el = document.getElementById("count"); if(el) el.textContent = left;
+    if(left <= 0){ clearInterval(countdownTimer); countdownTimer=null; onDone(); }
+  },1000);
+}
+function renderLetter(){
+  if(!gameState.letter_opened){ gameState.letter_opened = now(); logEvent("letter_opened", { letter_opened:gameState.letter_opened }); saveState(); }
+  screenShell(`
+    <h2 class="center">${esc(t("letterTitle"))}</h2>
+    <div class="letter"><p>${esc(t("letterText"))}</p></div>
+    <div class="row right"><button class="primary" onclick="closeLetter()">${esc(t("toBirth"))}</button></div>
+  `);
+}
+function closeLetter(){ gameState.letter_closed = now(); logEvent("letter_closed", { letter_closed:gameState.letter_closed }); saveState(); go("08_birth"); }
+function renderBirth(){
+  if(!gameState.birth_time){ gameState.birth_time = now(); logEvent("birth_time", { birth_time:gameState.birth_time, character_id:gameState.character_id }); saveState(); }
+  screenShell(`
+    <div class="center">
+      ${sparkles()}
+      <h2>${esc(t("birthTitle"))}</h2>
+      <p>${esc(t("birthDesc"))}</p>
+      <div class="pet-stage">${characterImg("happy","birth")}</div>
+      <button class="primary" onclick="startCareDays()">${esc(t("start"))}</button>
+    </div>`);
+}
+function startCareDays(){ gameState.day = 1; gameState.screen = "09_day_home"; logEvent("day_visit", { day:1, visit_count:++gameState.visit_count }); saveState(); render(); }
+
+function currentDayActions(){ const d = String(gameState.day || 1); gameState.dayActions[d] = gameState.dayActions[d] || {}; return gameState.dayActions[d]; }
+function completedActionsCount(){ return Object.keys(currentDayActions()).filter(k=>currentDayActions()[k]).length; }
+function hasAction(type){ return !!currentDayActions()[type]; }
+function markAction(type, details={}){
+  const actions = currentDayActions(); actions[type] = true;
+  gameState.affection = Math.min(100, (gameState.affection || 0) + 10);
+  logEvent(type, {
+    ...details,
+    affection_meter:gameState.affection,
+    original_character_id:gameState.character_id || "",
+    display_character_id:getDisplayCharacterId() || "",
+    motion_character_id:getMotionCharacterId() || "",
+    persona_character_id:getPersonalityCharacterId() || "",
+    original_behavior_log_continues:!!getIdentityCondition().keepOriginalBehaviorAndLog
+  });
+  saveState();
+}
+function speechBubble(text, label="", extraClass=""){
+  const shownLabel = label || getSpeechLabel("normal");
+  return `<div class="speech-bubble ${esc(extraClass)}"><div class="speech-label">${esc(shownLabel)}</div><p>${esc(text)}</p></div>`;
+}
+function buildHomeSpeech(){
+  const identityCond = getIdentityCondition();
+  if(isAfterRegeneration() && identityCond.memoryLog && completedActionsCount() % 2 === 0){
+    return { text: buildCareMemoryComment(), kind:"memory", label:getSpeechLabel("memory") };
+  }
+  return { text: characterBehaviorLine(), kind:"normal", label:getSpeechLabel("normal") };
+}
+function messageForHome(){
+  return buildHomeSpeech().text;
+}
+function renderDayHome(){
+  logEvent("day_visit", { day:gameState.day, visit_count:++gameState.visit_count }); saveState();
+  const remaining = Math.max(0, REQUIRED_ACTIONS_PER_DAY - completedActionsCount());
+  const endDisabled = remaining > 0 ? "disabled" : "";
+  const speech = buildHomeSpeech();
+  logEvent("character_line_displayed", { day:gameState.day, character_line:speech.text, speech_kind:speech.kind, persona_character_id:getPersonalityCharacterId() || "" });
+  screenShell(`
+    <div class="home-layout">
+      <div class="center">
+        ${sparkles()}
+        <div class="pill">${esc(t("day"))} ${esc(gameState.day)}</div>
+        <div class="pet-stage">${characterImg("happy")}</div>
+      </div>
+      <div>
+        <h2>${esc(getBeingDisplayName())}</h2>
+        ${speechBubble(speech.text, speech.label, speech.kind === "memory" ? "memory-note" : "")}
+        <div style="margin:18px 0"><div class="row" style="justify-content:space-between"><strong>${esc(t("affection"))}</strong><span>${esc(gameState.affection || 0)}%</span></div><div class="meter"><div class="meter-fill" style="width:${Math.min(100,gameState.affection || 0)}%"></div></div></div>
+        <p class="small">${remaining>0 ? esc(t("requiredActions").replace("{n}",remaining)) : esc(t("actionsToday") + " OK")}</p>
+        <div class="menu-grid">
+          <button onclick="go('10_food')" class="soft"><span class="menu-icon">🍽️</span>${esc(t("food"))}${hasAction("food_choice")?" ✓":""}</button>
+          <button onclick="go('11_outing')" class="soft"><span class="menu-icon">🌙</span>${esc(t("outing"))}${hasAction("outing_choice")?" ✓":""}</button>
+          <button onclick="go('12_clean')" class="soft"><span class="menu-icon">🫧</span>${esc(t("clean"))}${hasAction("poop_clean")?" ✓":""}</button>
+          <button onclick="go('13_petting')" class="soft"><span class="menu-icon">🖐️</span>${esc(t("petting"))}${hasAction("petting")?" ✓":""}</button>
+        </div>
+        <div class="row right" style="margin-top:16px"><button class="primary" ${endDisabled} onclick="completeCurrentDay()">${esc(t("endToday"))}</button></div>
+      </div>
+    </div>`);
+}
+function renderFood(){
+  const choices = t("foodChoices");
+  screenShell(`
+    <h2>${esc(t("foodTitle"))}</h2>
+    <div class="grid two" style="margin-top:18px">
+      ${choices.map(c=>`<button class="choice" onclick="chooseFood('${esc(c)}')">${esc(c)}</button>`).join("")}
+    </div>
+  `);
+}
+function chooseFood(choice){
+  const comment = getActionComment("food", choice) || t("foodReactHigh");
+  markAction("food_choice", { day:gameState.day, food_choice:choice, food_time:now(), character_comment:comment });
+  showReaction(comment);
+}
+function renderOuting(){
+  const choices = t("outingChoices");
+  screenShell(`
+    <h2>${esc(t("outingTitle"))}</h2>
+    <div class="grid two" style="margin-top:18px">
+      ${choices.map(c=>`<button class="choice" onclick="chooseOuting('${esc(c)}')">${esc(c)}</button>`).join("")}
+    </div>
+  `);
+}
+function chooseOuting(choice){
+  const comment = getActionComment("outing", choice) || t("outingReactHigh");
+  markAction("outing_choice", { day:gameState.day, outing_choice:choice, outing_time:now(), character_comment:comment });
+  showReaction(comment);
+}
+function showReaction(text){
+  screenShell(`
+    <div class="center">
+      <div class="pet-stage">${characterImg("happy","smallish")}</div>
+      <h2>${esc(t("done"))}</h2>
+      ${speechBubble(text)}
+      <button class="primary" onclick="go('09_day_home')">${esc(t("returnHome"))}</button>
+    </div>`);
+}
+function renderClean(){
+  screenShell(`
+    <h2>${esc(t("cleanTitle"))}</h2><p>${esc(t("cleanDesc"))}</p>
+    <div id="poopArea" class="poop-area">
+      <span class="poop" style="left:20%;top:22%" onclick="cleanPoop(this)">💩</span>
+      <span class="poop" style="left:65%;top:40%" onclick="cleanPoop(this)">💩</span>
+      <span class="poop" style="left:42%;top:68%" onclick="cleanPoop(this)">💩</span>
+    </div>
+  `);
+  window._poopCleaned = 0;
+}
+function cleanPoop(el){
+  el.style.opacity = 0; el.style.transform = "scale(.4) rotate(12deg)"; el.style.pointerEvents="none";
+  window._poopCleaned = (window._poopCleaned || 0) + 1;
+  if(window._poopCleaned >= 3){
+    const comment = getActionComment("clean") || t("cleanComplete");
+    markAction("poop_clean", { day:gameState.day, poop_clean_count:3, poop_clean_time:now(), character_comment:comment });
+    setTimeout(()=>showReaction(comment), 320);
+  }
+}
+function renderPetting(){
+  screenShell(`
+    <h2>${esc(t("pettingTitle"))}</h2><p>${esc(t("pettingDesc"))}</p>
+    <div id="pettingArea" class="petting-area">
+      <div class="pet-stage" style="min-height:330px">${characterImg("happy","smallish")}</div>
+      ${speechBubble(getActionComment("petting") || characterBehaviorLine())}
+      <div id="hand" class="hand hidden">🖐️</div>
+    </div>
+    <div class="right" style="margin-top:14px"><button id="petDone" class="primary" disabled onclick="finishPetting()">${esc(t("done"))}</button></div>
+  `);
+  window._petCount = 0; window._heartCount = 0;
+  const area = document.getElementById("pettingArea");
+  const hand = document.getElementById("hand");
+  const handler = (ev) => {
+    const rect = area.getBoundingClientRect();
+    const p = ev.touches ? ev.touches[0] : ev;
+    const x = p.clientX - rect.left, y = p.clientY - rect.top;
+    hand.classList.remove("hidden"); hand.style.left = x+"px"; hand.style.top = y+"px";
+    spawnHearts(area, x, y);
+    window._petCount++;
+    if(window._petCount >= 5) document.getElementById("petDone").disabled = false;
+  };
+  area.addEventListener("pointerdown", handler); area.addEventListener("pointermove", (e)=>{ if(e.buttons) handler(e); });
+  area.addEventListener("touchmove", (e)=>{ e.preventDefault(); handler(e); }, {passive:false});
+}
+function spawnHearts(area,x,y){
+  const cond = CONDITIONS[gameState.condition_id] || CONDITIONS.C1;
+  const n = cond.engagement === "high" ? 3 : 1;
+  for(let i=0;i<n;i++){
+    const h = document.createElement("span"); h.className = "heart"; h.textContent = ["💗","💖","💕"][i%3];
+    h.style.left = (x + (Math.random()*36-18)) + "px"; h.style.top = (y + (Math.random()*26-13)) + "px";
+    area.appendChild(h); setTimeout(()=>h.remove(), 1300); window._heartCount++;
+  }
+}
+function finishPetting(){
+  const comment = getActionComment("petting") || t("pettingComplete");
+  markAction("petting", { day:gameState.day, petting_count:window._petCount || 0, heart_count:window._heartCount || 0, petting_time:now(), character_comment:comment });
+  showReaction(comment);
+}
+function completeCurrentDay(){
+  const d = gameState.day;
+  gameState.dayComplete[String(d)] = true;
+  logEvent("day_complete", { day_complete:d, day_complete_time:now() }); saveState();
+  if(d === 3) go("15_before_disappearance");
+  else if(d === 5) go("19_survey_transition");
+  else go("14_day_complete");
+}
+function renderDayComplete(){
+  screenShell(`
+    <div class="center">
+      <h2>${esc(t("dayCompleteTitle"))}</h2>
+      <p>${esc(t("comeBack"))}</p>
+      <div class="pet-stage">${characterImg("sleep","sleep smallish")}</div>
+      ${DEV_MODE ? `<button class="primary" onclick="advanceDay()">${esc(t("devNext"))}</button>` : `<p class="small">${esc(t("comeBack"))}</p>`}
+    </div>`);
+}
+function advanceDay(){ gameState.day = Math.min(5, (gameState.day || 1) + 1); gameState.screen = "09_day_home"; logEvent("dev_advance_day", { day:gameState.day }); saveState(); render(); }
+function renderBeforeDisappearance(){
+  logEvent("before_disappearance_time", { before_disappearance_time:now(), day3_complete:true });
+  screenShell(`
+    <div class="center">
+      <h2>${esc(t("beforeLossTitle"))}</h2>
+      <p class="lead">${esc(replaceName(t("beforeLossText")))}</p>
+      <div class="pet-stage">${characterImg("sad","sad smallish")}</div>
+      <button class="dangerless" onclick="go('16_disappearance')">${esc(t("stayClose"))}</button>
+    </div>`);
+}
+function renderDisappearance(){
+  if(!gameState.disappearance_time){ gameState.disappearance_time = now(); logEvent("disappearance_reached", { disappearance_reached:true, disappearance_time:gameState.disappearance_time }); saveState(); }
+  screenShell(`
+    <div class="noise"></div>
+    <div class="center">
+      <h2>${esc(t("lossTitle"))}</h2>
+      <p class="lead">${esc(replaceName(t("lossText")))}</p>
+      <div class="pet-stage">${characterImg("sad","fadeout sad")}</div>
+      <button class="primary" onclick="go('17_regeneration_wait')">${esc(t("toRegen"))}</button>
+    </div>`, "dim");
+}
+function renderRegenerationWait(){
+  const cond = CONDITIONS[gameState.condition_id] || CONDITIONS.C1;
+  const frameText = cond.frame === "inherit" ? t("regenInherit") : t("regenNew");
+  if(!gameState.regeneration_wait_start){ gameState.regeneration_wait_start = now(); logEvent("regeneration_frame", { regeneration_frame:cond.frame, regeneration_wait_start:gameState.regeneration_wait_start, text:frameText }); saveState(); }
+  const seconds = DEV_MODE ? 5 : 60;
+  screenShell(`
+    <div class="center">
+      ${sparkles()}
+      <h2>${esc(t("regenWaitTitle"))}</h2>
+      <p class="lead">${esc(frameText)}</p>
+      <div id="count" class="countdown">${seconds}</div>
+    </div>`);
+  startCountdown(seconds, () => { gameState.regeneration_wait_end = now(); logEvent("regeneration_wait_end", { regeneration_wait_end:gameState.regeneration_wait_end }); saveState(); go("18_regeneration"); });
+}
+function renderRegeneration(){
+  if(!gameState.regeneration_time){
+    gameState.regeneration_time = now();
+    gameState.regenerated = true;
+    logEvent("regeneration_time", {
+      regeneration_time:gameState.regeneration_time,
+      identity_condition_id:gameState.identity_condition_id,
+      identity_condition_label:getIdentityCondition().label,
+      original_character_id:gameState.character_id,
+      display_character_id:getDisplayCharacterId(),
+      motion_character_id:getMotionCharacterId(),
+      persona_character_id:getPersonalityCharacterId(),
+      appearance_changed:getDisplayCharacterId() !== gameState.character_id,
+      motion_changed:getMotionCharacterId() !== gameState.character_id,
+      memory_log_enabled:!!getIdentityCondition().memoryLog,
+      original_behavior_log_continues:!!getIdentityCondition().keepOriginalBehaviorAndLog
+    });
+    saveState();
+  }
+  screenShell(`
+    <div class="center">
+      ${sparkles()}
+      <h2>${esc(t("regenTitle"))}</h2>
+      <p class="lead">${esc(t("regenText"))}</p>
+      <div class="pet-stage">${characterImg("happy","birth")}</div>
+      <button class="primary" onclick="startAfterRegeneration()">${esc(t("startDay4"))}</button>
+    </div>`);
+}
+function startAfterRegeneration(){ gameState.day = 4; gameState.screen = "09_day_home"; logEvent("day_visit", { day:4, visit_count:++gameState.visit_count, regenerated:true }); saveState(); render(); }
+function renderSurveyTransition(){
+  if(!gameState.survey_button_displayed){ gameState.day5_complete = true; gameState.survey_button_displayed = now(); logEvent("survey_button_displayed", { day5_complete:true, survey_button_displayed:gameState.survey_button_displayed }); saveState(); }
+  screenShell(`
+    <div class="center">
+      <h2>${esc(t("surveyTitle"))}</h2>
+      <p class="lead">${esc(t("surveyText"))}</p>
+      <div class="pet-stage">${characterImg("sleep","sleep smallish")}</div>
+      <button class="accent" onclick="openSurvey()">${esc(t("goSurvey"))}</button>
+      <p class="small">${esc(t("urlNote"))}</p>
+    </div>`);
+}
+function openSurvey(){
+  const url = new URL(SURVEY_URL, location.href);
+  url.searchParams.set("research_id", gameState.research_id || "");
+  url.searchParams.set("condition_id", gameState.condition_id || "");
+  url.searchParams.set("identity_condition_id", gameState.identity_condition_id || "");
+  url.searchParams.set("original_character_id", gameState.character_id || "");
+  url.searchParams.set("display_character_id", getDisplayCharacterId() || "");
+  url.searchParams.set("motion_character_id", getMotionCharacterId() || "");
+  url.searchParams.set("persona_character_id", getPersonalityCharacterId() || "");
+  url.searchParams.set("character_id", gameState.character_id || "");
+  url.searchParams.set("language", gameState.language || "ja");
+  gameState.survey_url_clicked = now(); logEvent("survey_url_clicked", { survey_opened:true, survey_url:String(url) }); saveState();
+  window.open(String(url), "_blank", "noopener");
+  go("20_end");
+}
+function renderEnd(){ screenShell(`<div class="center"><h2>${esc(t("finish"))}</h2><p class="lead">ありがとうございました。</p><button class="soft" onclick="downloadLog('csv')">${esc(t("downloadCsv"))}</button></div>`); }
+
+function updateDevPanel(){
+  const panel = document.getElementById("devPanel");
+  // 参加者画面では非表示。管理者確認URL（?admin=1 または ?dev=1）の時だけ表示します。
+  if(!DEV_MODE){ panel.classList.add("hidden"); return; }
+  panel.classList.remove("hidden");
+  panel.innerHTML = `
+    <span>ADMIN確認 / screen: ${esc(gameState.screen)} / log: ${event_log.length} / identity: ${esc(gameState.identity_condition_id || "未設定")}</span>
+    <button onclick="downloadLog('csv')">${esc(t("downloadCsv"))}</button>
+    <button onclick="downloadLog('json')">${esc(t("downloadJson"))}</button>
+    <button onclick="showLogPreview()">${esc(t("logPreview"))}</button>
+    <button onclick="resetGame()">${esc(t("reset"))}</button>
+    <span>動作確認用条件固定</span>
+    <button onclick="setIdentityCondition('A1')">①固定</button>
+    <button onclick="setIdentityCondition('A2')">②固定</button>
+    <button onclick="setIdentityCondition('A3')">③固定</button>`;
+}
+function setIdentityCondition(id){
+  if(!IDENTITY_CONDITIONS[id]) return;
+  gameState.identity_condition_id = id;
+  logEvent("dev_set_identity_condition", { identity_condition_id:id, identity_condition_label:IDENTITY_CONDITIONS[id].label });
+  saveState();
+  render();
+}
+function flattenDetails(details){
+  return Object.entries(details || {}).map(([k,v]) => `${k}=${String(v).replace(/\n/g," ")}`).join("; ");
+}
+function csvCell(value){
+  return `"${String(value ?? "").replace(/"/g,'""')}"`;
+}
+function rowToExport(r){
+  const details = r.details || {};
+  return {
+    timestamp: r.timestamp || "",
+    research_id: r.research_id || "",
+    condition_id: r.condition_id || "",
+    identity_condition_id: details.identity_condition_id || r.identity_condition_id || gameState.identity_condition_id || "",
+    character_id: r.character_id || "",
+    display_character_id: details.display_character_id || "",
+    motion_character_id: details.motion_character_id || "",
+    persona_character_id: details.persona_character_id || "",
+    language: gameState.language || "",
+    screen_id: r.screen_id || "",
+    day: r.day || "",
+    event_type: r.event_type || "",
+    affection: details.affection_meter ?? gameState.affection ?? "",
+    action: details.action || r.event_type || "",
+    choice: details.food_choice || details.outing_choice || "",
+    macaron_color: gameState.macaron_color || "",
+    character_comment: details.character_comment || details.character_line || "",
+    speech_kind: details.speech_kind || "",
+    details: flattenDetails(details)
+  };
+}
+function downloadLog(type){
+  const base = (gameState.research_id || "no_id").replace(/[^a-zA-Z0-9_-]/g,"_");
+  let content, mime, ext;
+  if(type === "json") { content = JSON.stringify({ gameState, event_log }, null, 2); mime="application/json"; ext="json"; }
+  else {
+    const header = ["timestamp","research_id","condition_id","identity_condition_id","character_id","display_character_id","motion_character_id","persona_character_id","language","screen_id","day","event_type","affection","action","choice","macaron_color","character_comment","speech_kind","details"];
+    const rows = event_log.map(r => {
+      const exportRow = rowToExport(r);
+      return header.map(h => csvCell(exportRow[h])).join(",");
+    });
+    content = header.join(",") + "\n" + rows.join("\n"); mime="text/csv"; ext="csv";
+  }
+  const blob = new Blob([content], { type:mime + ";charset=utf-8" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `osewa_${base}_log.${ext}`; a.click(); URL.revokeObjectURL(a.href);
+}
+function showLogPreview(){
+  screenShell(`<h2>${esc(t("logPreview"))}</h2><details open><summary>gameState</summary><div class="mono">${esc(JSON.stringify(gameState,null,2))}</div></details><details open><summary>event_log</summary><div class="mono">${esc(JSON.stringify(event_log.slice(-30),null,2))}</div></details><div class="row right"><button class="primary" onclick="render()">${esc(t("returnHome"))}</button></div>`);
+}
+function resetGame(){ if(confirm("Reset this prototype data?")){ localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(LOG_KEY); gameState=defaultState(); event_log=[]; render(); } }
+
+// 初期化：同意前に本編へ進めないよう、状態を確認して画面を補正します。
+(function init(){
+  if(!gameState.language) gameState.screen = "01_language";
+  else if(!gameState.research_id) gameState.screen = "02_research_id";
+  else if(!gameState.explanation_viewed) gameState.screen = "03_explanation";
+  else if(!gameState.consent) gameState.screen = "04_consent";
+  flushRemoteLogQueue();
+  render();
+})();
+
+/*
+確認リスト
+・言語選択ができる。
+・研究IDが入力または自動生成できる。
+・説明画面と同意画面がある。
+・同意しないと開始できない。
+・マカロン選択でキャラクターが決まる。
+・4条件が割り当てられる。
+・1日目から5日目まで進行できる。
+・3日目終了後に消失画面が出る。
+・再生成待機画面で条件別の表示文が出る。
+・4日目と5日目に再生成後の存在と関われる。
+・5日目終了後にGoogleフォームへ移動できる。
+・localStorageにログが保存される。
+・LOG_ENDPOINTを設定するとGoogleスプレッドシートへログを自動送信できる。
+・通常URLでは参加者が条件を選ばず、条件①②③はランダムに割り当てられる。
+・?admin=1 の管理者確認モードで、条件固定・ログ確認・短縮動作確認ができる。
+*/
+</script>
+</body>
+</html>
