@@ -482,6 +482,51 @@
     }
 
 
+
+
+    /* ===========================================================
+       最終調整：宇宙背景の上でも見出しを読みやすくする
+       黒文字では背景に沈むため、見出しは白〜淡い黄色にします。
+       ボタンや吹き出し内の文字はそのまま読みやすい濃色を残します。
+       =========================================================== */
+    .screen > h1,
+    .screen > h2,
+    .screen > h3,
+    .screen .center > h1,
+    .screen .center > h2,
+    .screen .center > h3{
+      color:#fff4a8 !important;
+      text-shadow:
+        0 2px 8px rgba(32,18,64,.72),
+        0 0 16px rgba(255,255,255,.42) !important;
+    }
+    .screen > p,
+    .screen .center > p.lead,
+    .screen .lead{
+      color:#ffffff !important;
+      text-shadow:
+        0 2px 7px rgba(32,18,64,.70),
+        0 0 12px rgba(255,255,255,.28) !important;
+    }
+    .screen .small{
+      color:rgba(255,255,255,.88) !important;
+      text-shadow:0 1px 5px rgba(32,18,64,.55) !important;
+    }
+
+    /* 白いカード・ボタン・吹き出しの中は、逆に濃い文字の方が読みやすいので戻します。 */
+    .card p,
+    .letter p,
+    .speech-bubble p,
+    .choice,
+    .menu-grid button,
+    button,
+    .btn,
+    input,
+    .pill{
+      color:var(--ink) !important;
+      text-shadow:none !important;
+    }
+
   </style>
 </head>
 <body>
