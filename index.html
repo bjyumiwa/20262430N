@@ -251,6 +251,36 @@
       background:transparent !important;
     }
 
+
+    /* ===========================================================
+       キャラクターを少し小さく表示する調整
+       大きくなりすぎないように、画面の余白を残します。
+       =========================================================== */
+    .pet-stage{
+      min-height:270px !important;
+    }
+    .pet-img{
+      max-width:min(300px,68vw) !important;
+      max-height:300px !important;
+    }
+    .pet-img.smallish{
+      max-width:min(240px,62vw) !important;
+      max-height:230px !important;
+    }
+    .char-fallback{
+      width:210px !important;
+      height:210px !important;
+      font-size:54px !important;
+    }
+    .char-fallback.smallish{
+      width:180px !important;
+      height:180px !important;
+      font-size:48px !important;
+    }
+    .petting-area .pet-stage{
+      min-height:250px !important;
+    }
+
   </style>
 </head>
 <body>
@@ -954,46 +984,49 @@ const MEMORY_COMMENT_TEMPLATES = {
 const translations = {
   ja: {
     langName:"日本語", appTitle:"5日間のお世話", chooseLanguage:"言語を選んでください", next:"次へ", back:"戻る", start:"はじめる", continue:"つづける",
+    nameTitle:"名前をつけますか", nameDesc:"名前をつける場合は入力してください。氏名など、個人が特定される情報は入れないでください。空欄のまま進むこともできます。", namePlaceholder:"例：ルミ", saveName:"この名前で進む", skipName:"名前をつけずに進む",
     researchIdTitle:"研究IDの入力", researchIdDesc:"研究IDを入力してください。未入力の場合は、自動で研究IDを作成します。氏名や学校名など、個人が特定される情報は入力しないでください。", researchIdPlaceholder:"例：R-20260512-AB12", useThisId:"このIDで進む", autoId:"未入力のため研究IDを自動生成しました。",
     explanationTitle:"研究について", explanationText:"この研究では、ブラウザ型のお世話ゲームを通して、デジタルキャラクターとの関わり方を調べます。ゲーム中には、関わっていたデジタル存在の死または消失に相当する場面が含まれることがあります。また、その後に再生成された存在と関わる場面があります。悲しさ、さみしさ、違和感を覚える可能性があります。つらいと感じた場合は、いつでも途中でやめられます。ゲーム中に個人が特定される情報は入力しないでください。",
     consentTitle:"同意確認", consentIntro:"すべて確認した場合だけ、ゲームを開始できます。", consentItems:["研究の目的と内容を確認しました。","ゲーム中に、死または消失に相当する場面が含まれることを理解しました。","その後、再生成された存在と関わる場面があることを理解しました。","悲しさ、さみしさ、違和感を覚える可能性があることを理解しました。","つらいと感じた場合は、いつでも途中でやめられることを理解しました。","ゲーム中の行動や質問紙回答が、個人が特定されない形で研究に使われることを理解しました。"], agreeStart:"同意してゲームを始める",
-    macaronTitle:"マカロンを1つ選んでください", macaronDesc:"選んだマカロンから、○○が生まれます。", selected:"選択", birthWaitTitle:"マカロンの中で、光がゆっくり動いています", waitDesc:"生まれるまで、少しだけ待ってください。", seconds:"秒", openLetter:"手紙を読む",
-    letterTitle:"小さな手紙", letterText:"こんにちは。このマカロンの中には、これから生まれる○○が眠っています。生まれたら、少しずつお世話をしてあげてください。ごはんを選んだり、お出かけしたり、なでたり、きれいにしてあげることができます。あなたとの時間が、○○の毎日になります。", toBirth:"誕生を見守る",
-    birthTitle:"生まれました", birthDesc:"光の中から、○○が現れました。", day:"日目", affection:"愛情メーター", actionsToday:"今日のお世話", requiredActions:"今日を終えるには、あと {n} 回お世話してください。", endToday:"今日のお世話を終える", food:"ごはん", outing:"お出かけ", clean:"きれいにする", petting:"なでる", done:"できました", returnHome:"ホームに戻る",
+    macaronTitle:"マカロンを1つ選んでください", macaronDesc:"選んだマカロンから、キャラクターが生まれます。", selected:"選択", birthWaitTitle:"マカロンの中で、光がゆっくり動いています", waitDesc:"生まれるまで、少しだけ待ってください。", seconds:"秒", openLetter:"手紙を読む",
+    letterTitle:"小さな手紙", letterText:"こんにちは。このマカロンの中には、これから生まれる{name}が眠っています。生まれたら、少しずつお世話をしてあげてください。ごはんを選んだり、お出かけしたり、なでたり、きれいにしてあげることができます。あなたとの時間が、{name}の毎日になります。", toBirth:"誕生を見守る",
+    birthTitle:"生まれました", birthDesc:"光の中から、{name}が現れました。", day:"日目", affection:"愛情メーター", actionsToday:"今日のお世話", requiredActions:"今日を終えるには、あと {n} 回お世話してください。", endToday:"今日のお世話を終える", food:"ごはん", outing:"お出かけ", clean:"きれいにする", petting:"なでる", done:"できました", returnHome:"ホームに戻る",
     homeMsgHigh:["見つけてくれて、うれしそうです。","昨日の時間を、少し覚えているように見えます。","そばに来ると、小さく光ります。","また会えたことを、ゆっくり喜んでいるようです。"], homeMsgLow:["静かにこちらを見ています。","お世話を待っています。","小さく反応しました。","画面の中で、ゆっくり動いています。"],
     foodTitle:"ごはんを選んでください", foodChoices:["星のクッキー","月のスープ"], foodReactHigh:"うれしそうに食べています。小さな光がふわっと広がりました。", foodReactLow:"食べました。", outingTitle:"お出かけ先を選んでください", outingChoices:["星の丘","光の庭"], outingReactHigh:"一緒に歩いた時間を楽しんでいるようです。", outingReactLow:"お出かけしました。",
-    cleanTitle:"きれいにしてあげてください", cleanDesc:"画面の中の💩をタップして片づけてください。", cleanComplete:"きれいになりました。", pettingTitle:"なでてください", pettingDesc:"○○の近くをタッチ、またはドラッグするとハートが出ます。", pettingComplete:"やさしくなでました。",
-    dayCompleteTitle:"今日のお世話はここまでです", comeBack:"また次の日に会いに来てください。", devNext:"開発用：次の日へ進む", beforeLossTitle:"今日のお世話は終わりました", beforeLossText:"○○は、少し静かにあなたを見ています。", stayClose:"そばにいる", lossTitle:"反応がありません", lossText:"○○の体が、少しずつ薄くなっていきます。小さな光が、画面の中に広がります。さっきまでそこにいた気配は、静かに消えていきました。", toRegen:"再生成へ進む",
+    cleanTitle:"きれいにしてあげてください", cleanDesc:"画面の中の💩をタップして片づけてください。", cleanComplete:"きれいになりました。", pettingTitle:"なでてください", pettingDesc:"{name}の近くをタッチ、またはドラッグするとハートが出ます。", pettingComplete:"やさしくなでました。",
+    dayCompleteTitle:"今日のお世話はここまでです", comeBack:"また次の日に会いに来てください。", devNext:"開発用：次の日へ進む", beforeLossTitle:"今日のお世話は終わりました", beforeLossText:"{name}は、少し静かにあなたを見ています。", stayClose:"そばにいる", lossTitle:"反応がありません", lossText:"{name}の体が、少しずつ薄くなっていきます。小さな光が、画面の中に広がります。さっきまでそこにいた気配は、静かに消えていきました。", toRegen:"再生成へ進む",
     regenWaitTitle:"再生成を開始します", regenInherit:"これまでの状態をもとに、再生成します。", regenNew:"新しい状態から、生成します。", regenTitle:"再生成されました", regenText:"光の中から、存在が再び現れました。", startDay4:"4日目のお世話へ進む",
     surveyTitle:"5日間のお世話はここまでです", surveyText:"最後に、感じたことについてアンケートに回答してください。", goSurvey:"最後のアンケートへ進む", finish:"終了しました", reset:"リセット", downloadCsv:"CSVログ", downloadJson:"JSONログ", logPreview:"ログ確認", urlNote:"GoogleフォームURLはコード上部の SURVEY_URL で変更できます。"
   },
   en: {
     langName:"English", appTitle:"Five days of care", chooseLanguage:"Choose a language", next:"Next", back:"Back", start:"Start", continue:"Continue",
+    nameTitle:"Would you like to give a name?", nameDesc:"Enter a name if you would like. Do not enter any personally identifying information such as your real name. You may also continue without naming it.", namePlaceholder:"e.g., Lumi", saveName:"Continue with this name", skipName:"Continue without a name",
     researchIdTitle:"Research ID", researchIdDesc:"Enter your research ID. If left blank, an ID will be generated automatically. Do not enter your name, school, address, or contact details.", researchIdPlaceholder:"e.g., R-20260512-AB12", useThisId:"Continue with this ID", autoId:"A research ID was generated automatically.",
     explanationTitle:"About this study", explanationText:"This browser-based care game studies how people interact with a digital character. The game may include a scene corresponding to death or disappearance of the digital being, followed by interaction with a regenerated being. You may feel sadness, loneliness, or discomfort. You may stop at any time. Do not enter personally identifying information during the game.",
     consentTitle:"Consent", consentIntro:"You can start only after confirming all items.", consentItems:["I have read the purpose and content of the study.","I understand that the game may include a scene corresponding to death or disappearance.","I understand that I will later interact with a regenerated being.","I understand that I may feel sadness, loneliness, or discomfort.","I understand that I may stop at any time.","I understand that game actions and survey responses may be used for research in a non-identifiable form."], agreeStart:"Agree and start",
-    macaronTitle:"Choose one macaron", macaronDesc:"○○ will be born from the macaron you choose.", selected:"Selected", birthWaitTitle:"A soft light is moving inside the macaron", waitDesc:"Please wait a little until birth.", seconds:"sec", openLetter:"Read the letter",
-    letterTitle:"A small letter", letterText:"Hello. ○○ is sleeping inside this macaron. When it is born, please take care of it little by little. You can choose food, go out, pet it, and keep it clean. The time with you will become ○○’s everyday life.", toBirth:"Watch the birth",
-    birthTitle:"It was born", birthDesc:"○○ appeared from the light.", day:"Day", affection:"Affection meter", actionsToday:"Care today", requiredActions:"Do {n} more care action(s) to finish today.", endToday:"Finish today", food:"Food", outing:"Go out", clean:"Clean", petting:"Pet", done:"Done", returnHome:"Back home",
+    macaronTitle:"Choose one macaron", macaronDesc:"A character will be born from the macaron you choose.", selected:"Selected", birthWaitTitle:"A soft light is moving inside the macaron", waitDesc:"Please wait a little until birth.", seconds:"sec", openLetter:"Read the letter",
+    letterTitle:"A small letter", letterText:"Hello. {name} is sleeping inside this macaron. When it is born, please take care of it little by little. You can choose food, go out, pet it, and keep it clean. The time with you will become {name}’s everyday life.", toBirth:"Watch the birth",
+    birthTitle:"It was born", birthDesc:"{name} appeared from the light.", day:"Day", affection:"Affection meter", actionsToday:"Care today", requiredActions:"Do {n} more care action(s) to finish today.", endToday:"Finish today", food:"Food", outing:"Go out", clean:"Clean", petting:"Pet", done:"Done", returnHome:"Back home",
     homeMsgHigh:["It looks happy that you found it.","It seems to remember a little of yesterday.","It softly glows when you come close.","It seems gently happy to meet you again."], homeMsgLow:["It quietly looks at you.","It is waiting for care.","It reacted slightly.","It moves slowly on the screen."],
     foodTitle:"Choose food", foodChoices:["Star cookie","Moon soup"], foodReactHigh:"It eats happily. A small light spreads softly.", foodReactLow:"It ate.", outingTitle:"Choose a place to go", outingChoices:["Star hill","Light garden"], outingReactHigh:"It seems to enjoy the time walking together.", outingReactLow:"You went out.",
-    cleanTitle:"Clean it up", cleanDesc:"Tap the poop icons on the screen.", cleanComplete:"All clean.", pettingTitle:"Pet gently", pettingDesc:"Touch or drag near ○○ to make hearts appear.", pettingComplete:"You gently petted it.",
-    dayCompleteTitle:"That is all for today", comeBack:"Please come back the next day.", devNext:"Dev: go to next day", beforeLossTitle:"Today’s care is finished", beforeLossText:"○○ is quietly looking at you.", stayClose:"Stay nearby", lossTitle:"No response", lossText:"○○’s body slowly becomes faint. Small lights spread across the screen. The presence that was there a moment ago quietly disappears.", toRegen:"Proceed to regeneration",
+    cleanTitle:"Clean it up", cleanDesc:"Tap the poop icons on the screen.", cleanComplete:"All clean.", pettingTitle:"Pet gently", pettingDesc:"Touch or drag near {name} to make hearts appear.", pettingComplete:"You gently petted it.",
+    dayCompleteTitle:"That is all for today", comeBack:"Please come back the next day.", devNext:"Dev: go to next day", beforeLossTitle:"Today’s care is finished", beforeLossText:"{name} is quietly looking at you.", stayClose:"Stay nearby", lossTitle:"No response", lossText:"{name}’s body slowly becomes faint. Small lights spread across the screen. The presence that was there a moment ago quietly disappears.", toRegen:"Proceed to regeneration",
     regenWaitTitle:"Regeneration starts", regenInherit:"Regenerating based on the previous state.", regenNew:"Generating from a new state.", regenTitle:"Regenerated", regenText:"The being appeared again from the light.", startDay4:"Go to Day 4 care",
     surveyTitle:"The five days of care are complete", surveyText:"Finally, please answer the survey about how you felt.", goSurvey:"Go to final survey", finish:"Finished", reset:"Reset", downloadCsv:"CSV log", downloadJson:"JSON log", logPreview:"Log preview", urlNote:"You can change the Google Form URL in SURVEY_URL near the top of the code."
   },
   "zh-CN": {
     langName:"简体中文", appTitle:"五天的照护", chooseLanguage:"请选择语言", next:"下一步", back:"返回", start:"开始", continue:"继续",
+    nameTitle:"要给它取名吗", nameDesc:"如果想取名，请输入名字。请不要输入真实姓名等可识别个人的信息。也可以不取名继续。", namePlaceholder:"例：露米", saveName:"使用这个名字继续", skipName:"不取名继续",
     researchIdTitle:"研究ID", researchIdDesc:"请输入研究ID。未输入时会自动生成。请不要输入姓名、学校、地址或联系方式等个人信息。", researchIdPlaceholder:"例：R-20260512-AB12", useThisId:"使用此ID继续", autoId:"已自动生成研究ID。",
     explanationTitle:"关于本研究", explanationText:"本研究通过浏览器中的照护游戏，了解人们如何与一个数字角色互动。游戏中可能包含相当于死亡或消失的场景，之后也会出现与再生成存在互动的场景。你可能会感到悲伤、寂寞或不适。感到不舒服时可以随时停止。游戏中请不要输入可识别个人的信息。",
     consentTitle:"同意确认", consentIntro:"确认所有项目后才可以开始游戏。", consentItems:["我已确认研究目的与内容。","我理解游戏中可能包含相当于死亡或消失的场景。","我理解之后会与再生成的存在互动。","我理解可能会感到悲伤、寂寞或不适。","我理解可以随时中止。","我理解游戏行为和问卷回答会以无法识别个人的形式用于研究。"], agreeStart:"同意并开始游戏",
-    macaronTitle:"请选择一个马卡龙", macaronDesc:"你选择的马卡龙里会诞生○○。", selected:"已选择", birthWaitTitle:"马卡龙中有柔和的光在移动", waitDesc:"请稍等，直到它诞生。", seconds:"秒", openLetter:"阅读信件",
-    letterTitle:"一封小信", letterText:"你好。这个马卡龙里，睡着即将出生的○○。出生后，请一点一点照顾它。你可以选择食物、外出、抚摸它，也可以帮它保持干净。与你在一起的时间，会成为○○的每一天。", toBirth:"守候诞生",
-    birthTitle:"诞生了", birthDesc:"○○从光中出现了。", day:"第", affection:"亲近度", actionsToday:"今天的照护", requiredActions:"还需要照护 {n} 次才能结束今天。", endToday:"结束今天的照护", food:"食物", outing:"外出", clean:"清理", petting:"抚摸", done:"完成", returnHome:"返回主页",
+    macaronTitle:"请选择一个马卡龙", macaronDesc:"你选择的马卡龙里会诞生一个角色。", selected:"已选择", birthWaitTitle:"马卡龙中有柔和的光在移动", waitDesc:"请稍等，直到它诞生。", seconds:"秒", openLetter:"阅读信件",
+    letterTitle:"一封小信", letterText:"你好。这个马卡龙里，睡着即将出生的{name}。出生后，请一点一点照顾它。你可以选择食物、外出、抚摸它，也可以帮它保持干净。与你在一起的时间，会成为{name}的每一天。", toBirth:"守候诞生",
+    birthTitle:"诞生了", birthDesc:"{name}从光中出现了。", day:"第", affection:"亲近度", actionsToday:"今天的照护", requiredActions:"还需要照护 {n} 次才能结束今天。", endToday:"结束今天的照护", food:"食物", outing:"外出", clean:"清理", petting:"抚摸", done:"完成", returnHome:"返回主页",
     homeMsgHigh:["它似乎很高兴被你发现。","它好像稍微记得昨天的时间。","你靠近时，它会轻轻发光。","它似乎温柔地高兴着再次见到你。"], homeMsgLow:["它静静地看着你。","它正在等待照护。","它轻轻反应了一下。","它在画面中慢慢移动。"],
     foodTitle:"请选择食物", foodChoices:["星星饼干","月亮汤"], foodReactHigh:"它开心地吃着，小小的光轻轻扩散。", foodReactLow:"它吃了。", outingTitle:"请选择外出去处", outingChoices:["星之丘","光之庭"], outingReactHigh:"它似乎享受一起散步的时间。", outingReactLow:"已经外出了。",
-    cleanTitle:"帮它清理", cleanDesc:"点击画面中的💩并清理掉。", cleanComplete:"变干净了。", pettingTitle:"请轻轻抚摸", pettingDesc:"触摸或拖动○○附近，会出现爱心。", pettingComplete:"你轻轻抚摸了它。",
-    dayCompleteTitle:"今天的照护到这里", comeBack:"请明天再来看它。", devNext:"开发用：进入下一天", beforeLossTitle:"今天的照护结束了", beforeLossText:"○○安静地看着你。", stayClose:"待在旁边", lossTitle:"没有反应", lossText:"○○的身体一点点变淡。小小的光在画面中扩散。刚才还在那里的气息，安静地消失了。", toRegen:"进入再生成",
+    cleanTitle:"帮它清理", cleanDesc:"点击画面中的💩并清理掉。", cleanComplete:"变干净了。", pettingTitle:"请轻轻抚摸", pettingDesc:"触摸或拖动{name}附近，会出现爱心。", pettingComplete:"你轻轻抚摸了它。",
+    dayCompleteTitle:"今天的照护到这里", comeBack:"请明天再来看它。", devNext:"开发用：进入下一天", beforeLossTitle:"今天的照护结束了", beforeLossText:"{name}安静地看着你。", stayClose:"待在旁边", lossTitle:"没有反应", lossText:"{name}的身体一点点变淡。小小的光在画面中扩散。刚才还在那里的气息，安静地消失了。", toRegen:"进入再生成",
     regenWaitTitle:"开始再生成", regenInherit:"根据此前的状态进行再生成。", regenNew:"从新的状态开始生成。", regenTitle:"已再生成", regenText:"存在从光中再次出现了。", startDay4:"进入第4天照护",
     surveyTitle:"五天的照护到这里结束", surveyText:"最后，请回答关于感受的问卷。", goSurvey:"进入最后问卷", finish:"已结束", reset:"重置", downloadCsv:"CSV日志", downloadJson:"JSON日志", logPreview:"日志预览", urlNote:"Google表单URL可在代码上方的 SURVEY_URL 中修改。"
   }
@@ -1027,17 +1060,24 @@ function interpolateLine(line, vars={}){
 }
 function esc(s){ return String(s ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c])); }
 function getBeingDisplayName(){
-  const labels = { ja:"○○", en:"○○", "zh-CN":"○○" };
-  return labels[gameState.language || "ja"] || labels.ja;
+  return String(gameState.character_name || "").trim();
 }
 function getBeingInlineName(){
-  const labels = { ja:"○○", en:"○○", "zh-CN":"○○" };
+  const name = getBeingDisplayName();
+  if(name) return name;
+  const labels = { ja:"このキャラクター", en:"this character", "zh-CN":"这个角色" };
   return labels[gameState.language || "ja"] || labels.ja;
 }
-function replaceName(text){ return String(text).replaceAll("○○", getBeingInlineName()); }
+function getBeingAltText(){
+  const name = getBeingDisplayName();
+  if(name) return name;
+  const labels = { ja:"キャラクター", en:"character", "zh-CN":"角色" };
+  return labels[gameState.language || "ja"] || labels.ja;
+}
+function replaceName(text){ return String(text).replaceAll("{name}", getBeingInlineName()); }
 
 function defaultState(){
-  return { language:null, research_id:null, screen:"01_language", consent:false, explanation_viewed:false, start_time:null, start_date:null, condition_id:null, identity_condition_id:null, macaron_color:null, character_id:null, day:1, affection:0, visit_count:0, dayActions:{}, dayComplete:{}, regenerated:false, last_message_id:null, version:"implementation_assets_v1" };
+  return { language:null, research_id:null, screen:"01_language", consent:false, explanation_viewed:false, start_time:null, start_date:null, condition_id:null, identity_condition_id:null, macaron_color:null, character_id:null, character_name:"", day:1, affection:0, visit_count:0, dayActions:{}, dayComplete:{}, regenerated:false, last_message_id:null, version:"implementation_assets_v1" };
 }
 function loadState(){ try{ return { ...defaultState(), ...(JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}) }; }catch(e){ return defaultState(); } }
 function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState)); updateStatus(); updateDevPanel(); }
@@ -1207,7 +1247,7 @@ function characterImg(state="happy", extraClass=""){
   if(!ch) return `<div class="char-fallback">✦</div>`;
   const src = ch.images[state] || ch.images.happy;
   const motionClass = getCharacterMotionClass(state, extraClass);
-  return `<img class="pet-img ${esc(extraClass)} ${esc(motionClass)}" src="${esc(src)}" alt="${esc(getBeingDisplayName())}" loading="eager" decoding="async" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden')"><div class="char-fallback hidden ${esc(extraClass)} ${esc(motionClass)}">${esc(ch.emoji || "✦")}</div>`;
+  return `<img class="pet-img ${esc(extraClass)} ${esc(motionClass)}" src="${esc(src)}" alt="${esc(getBeingAltText())}" loading="eager" decoding="async" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden')"><div class="char-fallback hidden ${esc(extraClass)} ${esc(motionClass)}">${esc(ch.emoji || "✦")}</div>`;
 }
 function characterBehaviorLine(){
   const behaviorId = getPersonalityCharacterId() || getMotionCharacterId() || gameState.character_id;
@@ -1264,6 +1304,7 @@ function render(){
     "03_explanation": renderExplanation,
     "04_consent": renderConsent,
     "05_macaron_select": renderMacaronSelect,
+    "05b_character_name": renderCharacterName,
     "06_birth_wait": renderBirthWait,
     "07_letter": renderLetter,
     "08_birth": renderBirth,
@@ -1358,7 +1399,7 @@ function renderMacaronImage(m, mode="select"){
 function renderMacaronSelect(){
   screenShell(`
     <h2>${esc(t("macaronTitle"))}</h2>
-    <p>${esc(t("macaronDesc"))}</p>
+    <p>${esc(replaceName(t("macaronDesc")))}</p>
     <div class="macaron-grid">
       ${MACARONS.map(m=>`
         <div class="macaron-card" onclick="selectMacaron('${esc(m.id)}')">
@@ -1376,9 +1417,31 @@ function selectMacaron(macaronId){
   gameState.condition_id = gameState.condition_id || randomCondition();
   gameState.identity_condition_id = gameState.identity_condition_id || randomIdentityCondition();
   gameState.start_date = gameState.start_date || new Date().toISOString().slice(0,10);
+  gameState.character_name = gameState.character_name || "";
+  gameState.screen = "05b_character_name";
+  logEvent("macaron_selected", { macaron_color:m.color, macaron_id:m.id, original_character_id:m.character_id, condition_id:gameState.condition_id, identity_condition_id:gameState.identity_condition_id, identity_condition_label:IDENTITY_CONDITIONS[gameState.identity_condition_id]?.label || "", random_assignment:true, admin_mode:ADMIN_MODE });
+  saveState(); render();
+}
+function renderCharacterName(){
+  screenShell(`
+    <h2>${esc(t("nameTitle"))}</h2>
+    <p>${esc(t("nameDesc"))}</p>
+    <div class="card" style="margin:20px 0">
+      <input id="characterNameInput" type="text" autocomplete="off" maxlength="16" placeholder="${esc(t("namePlaceholder"))}" value="${esc(gameState.character_name || "")}">
+    </div>
+    <div class="row right">
+      <button class="soft" onclick="saveCharacterName(true)">${esc(t("skipName"))}</button>
+      <button class="primary" onclick="saveCharacterName(false)">${esc(t("saveName"))}</button>
+    </div>
+  `);
+}
+function saveCharacterName(skip=false){
+  const input = document.getElementById("characterNameInput");
+  const value = skip ? "" : String(input?.value || "").trim().slice(0,16);
+  gameState.character_name = value;
   gameState.birth_wait_start = now();
   gameState.screen = "06_birth_wait";
-  logEvent("macaron_selected", { macaron_color:m.color, macaron_id:m.id, original_character_id:m.character_id, condition_id:gameState.condition_id, identity_condition_id:gameState.identity_condition_id, identity_condition_label:IDENTITY_CONDITIONS[gameState.identity_condition_id]?.label || "", random_assignment:true, admin_mode:ADMIN_MODE });
+  logEvent("character_name_set", { character_name_entered:!!value, character_name_length:value.length });
   saveState(); render();
 }
 function renderBirthWait(){
@@ -1408,7 +1471,7 @@ function renderLetter(){
   if(!gameState.letter_opened){ gameState.letter_opened = now(); logEvent("letter_opened", { letter_opened:gameState.letter_opened }); saveState(); }
   screenShell(`
     <h2 class="center">${esc(t("letterTitle"))}</h2>
-    <div class="letter"><p>${esc(t("letterText"))}</p></div>
+    <div class="letter"><p>${esc(replaceName(t("letterText")))}</p></div>
     <div class="row right"><button class="primary" onclick="closeLetter()">${esc(t("toBirth"))}</button></div>
   `);
 }
@@ -1419,7 +1482,7 @@ function renderBirth(){
     <div class="center">
       ${sparkles()}
       <h2>${esc(t("birthTitle"))}</h2>
-      <p>${esc(t("birthDesc"))}</p>
+      <p>${esc(replaceName(t("birthDesc")))}</p>
       <div class="pet-stage">${characterImg("happy","birth")}</div>
       <button class="primary" onclick="startCareDays()">${esc(t("start"))}</button>
     </div>`);
@@ -1471,7 +1534,7 @@ function renderDayHome(){
         <div class="pet-stage">${characterImg("happy")}</div>
       </div>
       <div>
-        <h2>${esc(getBeingDisplayName())}</h2>
+        ${getBeingDisplayName() ? `<h2>${esc(getBeingDisplayName())}</h2>` : ""}
         ${speechBubble(speech.text, speech.label, speech.kind === "memory" ? "memory-note" : "")}
         <div style="margin:18px 0"><div class="row" style="justify-content:space-between"><strong>${esc(t("affection"))}</strong><span>${esc(gameState.affection || 0)}%</span></div><div class="meter"><div class="meter-fill" style="width:${Math.min(100,gameState.affection || 0)}%"></div></div></div>
         <p class="small">${remaining>0 ? esc(t("requiredActions").replace("{n}",remaining)) : esc(t("actionsToday") + " OK")}</p>
@@ -1524,7 +1587,7 @@ function showReaction(text){
 }
 function renderClean(){
   screenShell(`
-    <h2>${esc(t("cleanTitle"))}</h2><p>${esc(t("cleanDesc"))}</p>
+    <h2>${esc(t("cleanTitle"))}</h2><p>${esc(replaceName(t("cleanDesc")))}</p>
     <div id="poopArea" class="poop-area">
       <span class="poop" style="left:20%;top:22%" onclick="cleanPoop(this)">💩</span>
       <span class="poop" style="left:65%;top:40%" onclick="cleanPoop(this)">💩</span>
@@ -1544,7 +1607,7 @@ function cleanPoop(el){
 }
 function renderPetting(){
   screenShell(`
-    <h2>${esc(t("pettingTitle"))}</h2><p>${esc(t("pettingDesc"))}</p>
+    <h2>${esc(t("pettingTitle"))}</h2><p>${esc(replaceName(t("pettingDesc")))}</p>
     <div id="pettingArea" class="petting-area">
       <div class="pet-stage" style="min-height:330px">${characterImg("happy","smallish")}</div>
       ${speechBubble(getActionComment("petting") || characterBehaviorLine())}
