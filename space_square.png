@@ -1,0 +1,22 @@
+{
+  "backgrounds": [
+    {
+      "id": "space_portrait",
+      "name": "宇宙背景（スマホ縦）",
+      "path": "public/assets/backgrounds/space_portrait.png",
+      "size": "1080x1920"
+    },
+    {
+      "id": "space_landscape",
+      "name": "宇宙背景（PC横）",
+      "path": "public/assets/backgrounds/space_landscape.png",
+      "size": "1920x1080"
+    },
+    {
+      "id": "space_square",
+      "name": "宇宙背景（正方形）",
+      "path": "public/assets/backgrounds/space_square.png",
+      "size": "1254x1254"
+    }
+  ]
+}

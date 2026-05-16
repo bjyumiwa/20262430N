@@ -1,0 +1,37 @@
+{
+  "characters": {
+    "penguin_yellow": {
+      "happy": "public/assets/characters/penguin_yellow/happy.png",
+      "sad": "public/assets/characters/penguin_yellow/sad.png",
+      "sleep": "public/assets/characters/penguin_yellow/sleep.png"
+    },
+    "cat_purple": {
+      "happy": "public/assets/characters/cat_purple/happy.png",
+      "sad": "public/assets/characters/cat_purple/sad.png",
+      "sleep": "public/assets/characters/cat_purple/sleep.png"
+    },
+    "rabbit_pink": {
+      "happy": "public/assets/characters/rabbit_pink/happy.png",
+      "sad": "public/assets/characters/rabbit_pink/sad.png",
+      "sleep": "public/assets/characters/rabbit_pink/sleep.png"
+    },
+    "lizard_green": {
+      "happy": "public/assets/characters/lizard_green/happy.png",
+      "sad": "public/assets/characters/lizard_green/sad.png",
+      "sleep": "public/assets/characters/lizard_green/sleep.png"
+    },
+    "kangaroo_blue": {
+      "happy": "public/assets/characters/kangaroo_blue/happy.png",
+      "sad": "public/assets/characters/kangaroo_blue/sad.png",
+      "sleep": "public/assets/characters/kangaroo_blue/sleep.png"
+    },
+    "seal_gray": {
+      "happy": "public/assets/characters/seal_gray/happy.png",
+      "sad": "public/assets/characters/seal_gray/sad.png",
+      "sleep": "public/assets/characters/seal_gray/sleep.png"
+    }
+  },
+  "macarons": {
+    "white": "public/assets/macarons/white.png"
+  }
+}
