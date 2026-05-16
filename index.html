@@ -211,6 +211,80 @@
     .choice{padding:24px;border-radius:28px;background:rgba(255,255,255,.7);border:1px solid var(--line);font-size:22px;min-height:120px;display:grid;place-items:center}
     .poop-area,.petting-area{min-height:420px;position:relative;background:rgba(255,255,255,.46);border:1px dashed rgba(93,70,126,.25);border-radius:28px;overflow:hidden;touch-action:none}
     .poop{position:absolute;font-size:42px;cursor:pointer;filter:drop-shadow(0 10px 8px rgba(80,50,90,.13));transition:.16s transform,.16s opacity}.poop:hover{transform:scale(1.08) rotate(-4deg)}
+
+
+    /* ===========================================================
+       うんち掃除ミニゲームを少し難しくする
+       動く💩の中から、指定された色のリングだけをタップします。
+       =========================================================== */
+    .clean-target-card{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin:10px auto 14px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.70);
+      border:1px solid rgba(255,255,255,.58);
+      color:var(--ink);
+      font-weight:800;
+      box-shadow:0 10px 24px rgba(31,19,70,.12);
+      -webkit-backdrop-filter:blur(8px);
+      backdrop-filter:blur(8px);
+    }
+    .clean-color-dot{
+      width:20px;
+      height:20px;
+      border-radius:999px;
+      background:var(--target-color,#ffd76b);
+      box-shadow:0 0 14px var(--target-color,#ffd76b);
+      border:2px solid rgba(255,255,255,.86);
+    }
+    .clean-progress{
+      display:inline-block;
+      margin-top:12px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.62);
+      color:var(--ink) !important;
+      text-shadow:none !important;
+      font-weight:800;
+      -webkit-backdrop-filter:blur(8px);
+      backdrop-filter:blur(8px);
+    }
+    .moving-poop{
+      width:58px;
+      height:58px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      border:4px solid var(--ring,#ffd76b);
+      background:rgba(255,255,255,.66);
+      box-shadow:0 0 18px color-mix(in srgb, var(--ring,#ffd76b) 65%, transparent), 0 10px 18px rgba(25,18,65,.18);
+      animation:poopDrift var(--dur,2.6s) ease-in-out infinite alternate;
+      user-select:none;
+    }
+    .moving-poop:hover{
+      transform:none;
+    }
+    .moving-poop.cleaned{
+      opacity:0 !important;
+      pointer-events:none !important;
+      animation:none !important;
+    }
+    .moving-poop.wrong{
+      animation:poopWrong .32s ease-in-out 1 !important;
+    }
+    @keyframes poopDrift{
+      from{transform:translate(0,0) rotate(-8deg) scale(1)}
+      to{transform:translate(var(--dx,42px),var(--dy,-28px)) rotate(10deg) scale(1.05)}
+    }
+    @keyframes poopWrong{
+      0%,100%{transform:translateX(0)}
+      25%{transform:translateX(-9px)}
+      50%{transform:translateX(9px)}
+      75%{transform:translateX(-5px)}
+    }
     .heart{position:absolute;pointer-events:none;font-size:24px;animation:heartUp 1.2s ease-out forwards}.hand{position:absolute;font-size:34px;opacity:.72;transform:translate(-50%,-50%);pointer-events:none}
     @keyframes heartUp{0%{opacity:0;transform:translateY(0) scale(.8)}20%{opacity:1}100%{opacity:0;transform:translateY(-90px) scale(1.3)}}
     .letter{background:linear-gradient(135deg,#fff,#fff7e6);border:1px solid rgba(201,168,95,.22);box-shadow:0 18px 35px rgba(122,85,24,.09);border-radius:20px;padding:24px;max-width:720px;margin:20px auto;text-align:left;position:relative}.letter::before{content:"✉";position:absolute;right:24px;top:12px;font-size:28px;opacity:.35}
@@ -223,7 +297,7 @@
 
     /* ===========================================================
        画面全体の背景
-       space_background.png を index.html と同じ場所に入れて使用します。
+       public/space_background.png を public フォルダに入れて使用します。
        背景は body に固定し、キャラクター画像とは一緒に動かしません。
        =========================================================== */
     html,
@@ -233,7 +307,7 @@
     body{
       background-image:
         linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.08)),
-        url("./space_background.png") !important;
+        url("public/space_background.png") !important;
       background-size:cover !important;
       background-position:center center !important;
       background-repeat:no-repeat !important;
@@ -301,7 +375,7 @@
   
 
     /* ===========================================================
-       最終調整：宇宙背景を index.html と同じ場所の space_background.png から表示
+       最終調整：宇宙背景を public/space_background.png から表示
        画面の白いカードを透かして、宇宙背景が見えるようにする。
        =========================================================== */
     html,
@@ -311,7 +385,7 @@
     body{
       background-image:
         linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
-        url("./space_background.png") !important;
+        url("public/space_background.png") !important;
       background-size:cover !important;
       background-position:center center !important;
       background-repeat:no-repeat !important;
@@ -324,7 +398,7 @@
     .screen{
       background:
         linear-gradient(135deg, rgba(255,255,255,.46), rgba(255,255,255,.34)),
-        url("./space_background.png") center center / cover no-repeat !important;
+        url("public/space_background.png") center center / cover no-repeat !important;
       border:1px solid rgba(255,255,255,.48) !important;
       box-shadow:0 18px 48px rgba(22, 16, 55, .18) !important;
       backdrop-filter:blur(6px) !important;
@@ -607,20 +681,106 @@
     }
 
 
-
     /* ===========================================================
-       背景画像の場所に合わせた最終上書き
-       GitHub上で index.html と space_background.png が同じ階層にある場合。
-       この指定が最後に来るので、上の public/ 指定が残っていてもこちらが優先されます。
+       FINAL：今回の版で残す背景指定
+       public/space_background.png を最優先で使います。
+       もし public 側に画像がない場合だけ、ルート直下の ./space_background.png を予備として表示します。
+       既存の改善（透明化、白い四角の除去、文字の読みやすさ、最新マカロン画像）は残します。
        =========================================================== */
+    html,
+    body{
+      min-height:100% !important;
+    }
     body{
       background-image:
-        linear-gradient(135deg, rgba(10,8,35,.06), rgba(10,8,35,.18)),
+        linear-gradient(135deg, rgba(10,8,35,.05), rgba(10,8,35,.18)),
+        url("public/space_background.png"),
         url("./space_background.png") !important;
-      background-size:cover !important;
-      background-position:center center !important;
-      background-repeat:no-repeat !important;
-      background-attachment:fixed !important;
+      background-size:cover, cover, cover !important;
+      background-position:center center, center center, center center !important;
+      background-repeat:no-repeat, no-repeat, no-repeat !important;
+      background-attachment:fixed, fixed, fixed !important;
+      background-color:#0b0824 !important;
+      overflow-x:hidden !important;
+    }
+    body::before,
+    body::after{
+      display:none !important;
+      content:none !important;
+    }
+    .screen{
+      background:transparent !important;
+      background-image:none !important;
+      background-color:transparent !important;
+      border:none !important;
+      box-shadow:none !important;
+      -webkit-backdrop-filter:none !important;
+      backdrop-filter:none !important;
+      overflow:visible !important;
+    }
+    .screen::before,
+    .screen::after{
+      display:none !important;
+      background:none !important;
+    }
+    .pet-stage,
+    .character-stage,
+    .character-area,
+    .character-box,
+    .pet-area,
+    .poop-area,
+    .petting-area,
+    .home-layout,
+    .home-layout > div,
+    .center{
+      background:transparent !important;
+      background-image:none !important;
+      background-color:transparent !important;
+      border-color:transparent !important;
+      box-shadow:none !important;
+      -webkit-backdrop-filter:none !important;
+      backdrop-filter:none !important;
+    }
+    .pet-img,
+    .macaron-img,
+    .char-fallback{
+      background:transparent !important;
+      background-image:none !important;
+      background-color:transparent !important;
+      border:none !important;
+      outline:none !important;
+      box-shadow:none !important;
+    }
+    h1,h2,h3,.lead{
+      color:#fff9cf !important;
+      text-shadow:0 2px 10px rgba(30,18,70,.58), 0 0 18px rgba(255,255,255,.28) !important;
+    }
+    .speech-bubble,
+    button,
+    .btn,
+    .card,
+    .letter,
+    input[type="text"],
+    .checkitem,
+    .macaron-card,
+    .choice,
+    .pill,
+    .meter{
+      background-color:rgba(255,255,255,.64) !important;
+      -webkit-backdrop-filter:blur(10px) !important;
+      backdrop-filter:blur(10px) !important;
+    }
+    .card p,
+    .letter p,
+    .speech-bubble p,
+    .choice,
+    .menu-grid button,
+    button,
+    .btn,
+    input,
+    .pill{
+      color:var(--ink) !important;
+      text-shadow:none !important;
     }
 
 </style>
@@ -710,6 +870,72 @@ const MACARONS = [
   { id:"green_macaron", color:"green", label:{ja:"緑",en:"Green","zh-CN":"绿色"}, character_id:"lizard_green", image:"public/assets/macarons/green_macaron.png", css:"linear-gradient(135deg,#cfff74,#7edc3e)" },
   { id:"purple_macaron", color:"purple", label:{ja:"紫",en:"Purple","zh-CN":"紫色"}, character_id:"cat_purple", image:"public/assets/macarons/purple_macaron.png", css:"linear-gradient(135deg,#d5b7ff,#8a61e9)" }
 ];
+
+
+/* ===========================================================
+   2択のお世話バリエーション
+   食べもの・飲みもの20種類、おでかけ先20種類。
+   画面に出る2択は日ごとにランダムで固定され、ログにも残ります。
+   =========================================================== */
+const FOOD_CHOICE_SETS = [
+  { id:"food_01", options:{ ja:["星くずパン","月しずくごはん"], en:["Stardust Bread","Moon-Drop Rice"], "zh-CN":["星尘面包","月露米饭"] } },
+  { id:"food_02", options:{ ja:["リンゴ星ジュース","ミカン彗星ジュース"], en:["Apple-Star Juice","Mandarin-Comet Juice"], "zh-CN":["苹果星果汁","橘子彗星果汁"] } },
+  { id:"food_03", options:{ ja:["ふわ雲パン","きら米ボール"], en:["Fluffy-Cloud Bread","Sparkle Rice Ball"], "zh-CN":["云朵软面包","闪米团"] } },
+  { id:"food_04", options:{ ja:["クリスタルミルク","流れ星ココア"], en:["Crystal Milk","Shooting-Star Cocoa"], "zh-CN":["水晶牛奶","流星可可"] } },
+  { id:"food_05", options:{ ja:["星砂スープ","月影シチュー"], en:["Star-Sand Soup","Moon-Shadow Stew"], "zh-CN":["星砂汤","月影炖汤"] } },
+  { id:"food_06", options:{ ja:["宇宙ベリーゼリー","オーロラプリン"], en:["Cosmic Berry Jelly","Aurora Pudding"], "zh-CN":["宇宙莓果冻","极光布丁"] } },
+  { id:"food_07", options:{ ja:["ロケットおにぎり","ほしのわサンド"], en:["Rocket Rice Ball","Star-Ring Sandwich"], "zh-CN":["火箭饭团","星环三明治"] } },
+  { id:"food_08", options:{ ja:["きらきらニンジン","銀河ポテト"], en:["Glitter Carrot","Galaxy Potato"], "zh-CN":["闪闪胡萝卜","银河土豆"] } },
+  { id:"food_09", options:{ ja:["ピンク星スムージー","青空ソーダ"], en:["Pink-Star Smoothie","Blue-Sky Soda"], "zh-CN":["粉星奶昔","蓝空苏打"] } },
+  { id:"food_10", options:{ ja:["太陽たまご","星雲とうふ"], en:["Sun Egg","Nebula Tofu"], "zh-CN":["太阳蛋","星云豆腐"] } },
+  { id:"food_11", options:{ ja:["小惑星クラッカー","虹色せんべい"], en:["Asteroid Cracker","Rainbow Rice Cracker"], "zh-CN":["小行星饼干","彩虹米饼"] } },
+  { id:"food_12", options:{ ja:["彗星バナナ","月うさぎリンゴ"], en:["Comet Banana","Moon-Rabbit Apple"], "zh-CN":["彗星香蕉","月兔苹果"] } },
+  { id:"food_13", options:{ ja:["ふわふわパンケーキ","星形ワッフル"], en:["Fluffy Pancake","Star-Shaped Waffle"], "zh-CN":["松软煎饼","星形华夫饼"] } },
+  { id:"food_14", options:{ ja:["ミルキーライス","プラネットヌードル"], en:["Milky Rice","Planet Noodles"], "zh-CN":["奶银河饭","行星面条"] } },
+  { id:"food_15", options:{ ja:["ぽかぽかスープ","ひんやりアイスミルク"], en:["Warm Glow Soup","Cool Ice Milk"], "zh-CN":["暖暖汤","冰凉牛奶"] } },
+  { id:"food_16", options:{ ja:["星の実サラダ","クリスタルコーン"], en:["Star-Fruit Salad","Crystal Corn"], "zh-CN":["星果沙拉","水晶玉米"] } },
+  { id:"food_17", options:{ ja:["まる月まんじゅう","流星ドーナツ"], en:["Round-Moon Bun","Meteor Donut"], "zh-CN":["圆月馒头","流星甜甜圈"] } },
+  { id:"food_18", options:{ ja:["きら水","ふわ茶"], en:["Sparkle Water","Fluffy Tea"], "zh-CN":["闪光水","云朵茶"] } },
+  { id:"food_19", options:{ ja:["マカロン星カレー","月面リゾット"], en:["Macaron-Star Curry","Moon-Surface Risotto"], "zh-CN":["马卡龙星咖喱","月面烩饭"] } },
+  { id:"food_20", options:{ ja:["ハートベリー","スターグレープ"], en:["Heart Berry","Star Grape"], "zh-CN":["心形莓果","星星葡萄"] } }
+];
+
+const OUTING_CHOICE_SETS = [
+  { id:"outing_01", options:{ ja:["星の丘","光の庭"], en:["Star Hill","Light Garden"], "zh-CN":["星之丘","光之庭"] } },
+  { id:"outing_02", options:{ ja:["月の図書館","流星広場"], en:["Moon Library","Meteor Plaza"], "zh-CN":["月亮图书馆","流星广场"] } },
+  { id:"outing_03", options:{ ja:["クリスタル池","オーロラ橋"], en:["Crystal Pond","Aurora Bridge"], "zh-CN":["水晶池","极光桥"] } },
+  { id:"outing_04", options:{ ja:["雲のベンチ","銀河ブランコ"], en:["Cloud Bench","Galaxy Swing"], "zh-CN":["云朵长椅","银河秋千"] } },
+  { id:"outing_05", options:{ ja:["小惑星トンネル","星砂ビーチ"], en:["Asteroid Tunnel","Star-Sand Beach"], "zh-CN":["小行星隧道","星砂海滩"] } },
+  { id:"outing_06", options:{ ja:["マカロン時計塔","月あかり駅"], en:["Macaron Clock Tower","Moonlight Station"], "zh-CN":["马卡龙钟塔","月光车站"] } },
+  { id:"outing_07", options:{ ja:["虹の観測所","彗星すべり台"], en:["Rainbow Observatory","Comet Slide"], "zh-CN":["彩虹观测所","彗星滑梯"] } },
+  { id:"outing_08", options:{ ja:["星雲の森","きらめき洞窟"], en:["Nebula Forest","Sparkle Cave"], "zh-CN":["星云森林","闪光洞穴"] } },
+  { id:"outing_09", options:{ ja:["ふわふわ雲原っぱ","ロケット小道"], en:["Fluffy Cloud Field","Rocket Path"], "zh-CN":["软云草地","火箭小路"] } },
+  { id:"outing_10", options:{ ja:["ハート星の泉","青い月の港"], en:["Heart-Star Spring","Blue-Moon Port"], "zh-CN":["心星泉","蓝月港"] } },
+  { id:"outing_11", options:{ ja:["星屑マーケット","光る草むら"], en:["Stardust Market","Glowing Grass"], "zh-CN":["星尘集市","发光草丛"] } },
+  { id:"outing_12", options:{ ja:["月うさぎ広場","クリーム雲の道"], en:["Moon-Rabbit Square","Cream-Cloud Road"], "zh-CN":["月兔广场","奶油云路"] } },
+  { id:"outing_13", options:{ ja:["ミルキーウェイ坂","星形ドーム"], en:["Milky Way Slope","Star Dome"], "zh-CN":["银河坡道","星形穹顶"] } },
+  { id:"outing_14", options:{ ja:["静かな宇宙庭園","にぎやか流星通り"], en:["Quiet Space Garden","Lively Meteor Street"], "zh-CN":["安静宇宙庭园","热闹流星街"] } },
+  { id:"outing_15", options:{ ja:["きら星ステージ","月影シアター"], en:["Twinkle-Star Stage","Moon-Shadow Theater"], "zh-CN":["闪星舞台","月影剧场"] } },
+  { id:"outing_16", options:{ ja:["星の郵便局","オーロラカフェ"], en:["Star Post Office","Aurora Cafe"], "zh-CN":["星星邮局","极光咖啡馆"] } },
+  { id:"outing_17", options:{ ja:["プラネット迷路","すやすや雲の部屋"], en:["Planet Maze","Sleepy Cloud Room"], "zh-CN":["行星迷宫","睡睡云房间"] } },
+  { id:"outing_18", options:{ ja:["光の階段","星風のテラス"], en:["Stairway of Light","Star-Wind Terrace"], "zh-CN":["光之阶梯","星风露台"] } },
+  { id:"outing_19", options:{ ja:["マカロン湖","彗星観覧車"], en:["Macaron Lake","Comet Ferris Wheel"], "zh-CN":["马卡龙湖","彗星摩天轮"] } },
+  { id:"outing_20", options:{ ja:["朝焼け星原","夜ふけ月原"], en:["Dawn Starfield","Midnight Moonfield"], "zh-CN":["晨曦星原","深夜月原"] } }
+];
+
+const CLEAN_COLORS = [
+  { id:"pink", hex:"#ff89c2", label:{ ja:"ピンク", en:"pink", "zh-CN":"粉色" } },
+  { id:"blue", hex:"#76c9ff", label:{ ja:"青", en:"blue", "zh-CN":"蓝色" } },
+  { id:"yellow", hex:"#ffd76b", label:{ ja:"黄色", en:"yellow", "zh-CN":"黄色" } },
+  { id:"green", hex:"#9be66f", label:{ ja:"緑", en:"green", "zh-CN":"绿色" } },
+  { id:"purple", hex:"#b88cff", label:{ ja:"紫", en:"purple", "zh-CN":"紫色" } }
+];
+
+const CLEAN_GAME_TEXTS = {
+  ja:{ target:"この色の💩だけをタップ", progress:"あと {n} 個", wrong:"その色ではありません", complete:"動く💩をきれいにできました。" },
+  en:{ target:"Tap only this color of poop", progress:"{n} more", wrong:"That is not the target color", complete:"You cleaned the moving poop." },
+  "zh-CN":{ target:"只点击这个颜色的便便", progress:"还剩 {n} 个", wrong:"不是这个颜色", complete:"移动的便便已经清理好了。" }
+};
 
 // 復活後に「違う容姿・違う動作」として使う対応関係。
 // 研究計画⑦付録の整理に合わせ、うさぎ↔アザラシ、カンガルー↔トカゲ、ペンギン↔猫で対応させます。
@@ -1336,7 +1562,7 @@ const translations = {
     birthTitle:"生まれました", birthDesc:"光の中から、{name}が現れました。", day:"日目", affection:"愛情メーター", actionsToday:"今日のお世話", requiredActions:"今日を終えるには、あと {n} 回お世話してください。", endToday:"今日のお世話を終える", food:"ごはん", outing:"お出かけ", clean:"きれいにする", petting:"なでる", done:"できました", returnHome:"ホームに戻る",
     homeMsgHigh:["見つけてくれて、うれしそうです。","昨日の時間を、少し覚えているように見えます。","そばに来ると、小さく光ります。","また会えたことを、ゆっくり喜んでいるようです。"], homeMsgLow:["静かにこちらを見ています。","お世話を待っています。","小さく反応しました。","画面の中で、ゆっくり動いています。"],
     foodTitle:"ごはんを選んでください", foodChoices:["星のクッキー","月のスープ"], foodReactHigh:"うれしそうに食べています。小さな光がふわっと広がりました。", foodReactLow:"食べました。", outingTitle:"お出かけ先を選んでください", outingChoices:["星の丘","光の庭"], outingReactHigh:"一緒に歩いた時間を楽しんでいるようです。", outingReactLow:"お出かけしました。",
-    cleanTitle:"きれいにしてあげてください", cleanDesc:"画面の中の💩をタップして片づけてください。", cleanComplete:"きれいになりました。", pettingTitle:"なでてください", pettingDesc:"{name}の近くをタッチ、またはドラッグするとハートが出ます。", pettingComplete:"やさしくなでました。",
+    cleanTitle:"きれいにしてあげてください", cleanDesc:"動いている💩の中から、指定された色だけをタップして片づけてください。", cleanComplete:"きれいになりました。", pettingTitle:"なでてください", pettingDesc:"{name}の近くをタッチ、またはドラッグするとハートが出ます。", pettingComplete:"やさしくなでました。",
     dayCompleteTitle:"今日のお世話はここまでです", comeBack:"また次の日に会いに来てください。", devNext:"開発用：次の日へ進む", beforeLossTitle:"今日のお世話は終わりました", beforeLossText:"{name}は、少し静かにあなたを見ています。", stayClose:"そばにいる", lossTitle:"反応がありません", lossText:"{name}の体が、少しずつ薄くなっていきます。小さな光が、画面の中に広がります。さっきまでそこにいた気配は、静かに消えていきました。", toRegen:"再生成へ進む",
     regenWaitTitle:"再生成を開始します", regenInherit:"これまでの状態をもとに、再生成します。", regenNew:"新しい状態から、生成します。", regenTitle:"再生成されました", regenText:"光の中から、存在が再び現れました。", startDay4:"4日目のお世話へ進む",
     surveyTitle:"5日間のお世話はここまでです", surveyText:"最後に、感じたことについてアンケートに回答してください。", goSurvey:"最後のアンケートへ進む", finish:"終了しました", reset:"リセット", downloadCsv:"CSVログ", downloadJson:"JSONログ", logPreview:"ログ確認", urlNote:"GoogleフォームURLはコード上部の SURVEY_URL で変更できます。"
@@ -1352,7 +1578,7 @@ const translations = {
     birthTitle:"It was born", birthDesc:"{name} appeared from the light.", day:"Day", affection:"Affection meter", actionsToday:"Care today", requiredActions:"Do {n} more care action(s) to finish today.", endToday:"Finish today", food:"Food", outing:"Go out", clean:"Clean", petting:"Pet", done:"Done", returnHome:"Back home",
     homeMsgHigh:["It looks happy that you found it.","It seems to remember a little of yesterday.","It softly glows when you come close.","It seems gently happy to meet you again."], homeMsgLow:["It quietly looks at you.","It is waiting for care.","It reacted slightly.","It moves slowly on the screen."],
     foodTitle:"Choose food", foodChoices:["Star cookie","Moon soup"], foodReactHigh:"It eats happily. A small light spreads softly.", foodReactLow:"It ate.", outingTitle:"Choose a place to go", outingChoices:["Star hill","Light garden"], outingReactHigh:"It seems to enjoy the time walking together.", outingReactLow:"You went out.",
-    cleanTitle:"Clean it up", cleanDesc:"Tap the poop icons on the screen.", cleanComplete:"All clean.", pettingTitle:"Pet gently", pettingDesc:"Touch or drag near {name} to make hearts appear.", pettingComplete:"You gently petted it.",
+    cleanTitle:"Clean it up", cleanDesc:"Tap only the moving poop with the target color.", cleanComplete:"All clean.", pettingTitle:"Pet gently", pettingDesc:"Touch or drag near {name} to make hearts appear.", pettingComplete:"You gently petted it.",
     dayCompleteTitle:"That is all for today", comeBack:"Please come back the next day.", devNext:"Dev: go to next day", beforeLossTitle:"Today’s care is finished", beforeLossText:"{name} is quietly looking at you.", stayClose:"Stay nearby", lossTitle:"No response", lossText:"{name}’s body slowly becomes faint. Small lights spread across the screen. The presence that was there a moment ago quietly disappears.", toRegen:"Proceed to regeneration",
     regenWaitTitle:"Regeneration starts", regenInherit:"Regenerating based on the previous state.", regenNew:"Generating from a new state.", regenTitle:"Regenerated", regenText:"The being appeared again from the light.", startDay4:"Go to Day 4 care",
     surveyTitle:"The five days of care are complete", surveyText:"Finally, please answer the survey about how you felt.", goSurvey:"Go to final survey", finish:"Finished", reset:"Reset", downloadCsv:"CSV log", downloadJson:"JSON log", logPreview:"Log preview", urlNote:"You can change the Google Form URL in SURVEY_URL near the top of the code."
@@ -1368,7 +1594,7 @@ const translations = {
     birthTitle:"诞生了", birthDesc:"{name}从光中出现了。", day:"第", affection:"亲近度", actionsToday:"今天的照护", requiredActions:"还需要照护 {n} 次才能结束今天。", endToday:"结束今天的照护", food:"食物", outing:"外出", clean:"清理", petting:"抚摸", done:"完成", returnHome:"返回主页",
     homeMsgHigh:["它似乎很高兴被你发现。","它好像稍微记得昨天的时间。","你靠近时，它会轻轻发光。","它似乎温柔地高兴着再次见到你。"], homeMsgLow:["它静静地看着你。","它正在等待照护。","它轻轻反应了一下。","它在画面中慢慢移动。"],
     foodTitle:"请选择食物", foodChoices:["星星饼干","月亮汤"], foodReactHigh:"它开心地吃着，小小的光轻轻扩散。", foodReactLow:"它吃了。", outingTitle:"请选择外出去处", outingChoices:["星之丘","光之庭"], outingReactHigh:"它似乎享受一起散步的时间。", outingReactLow:"已经外出了。",
-    cleanTitle:"帮它清理", cleanDesc:"点击画面中的💩并清理掉。", cleanComplete:"变干净了。", pettingTitle:"请轻轻抚摸", pettingDesc:"触摸或拖动{name}附近，会出现爱心。", pettingComplete:"你轻轻抚摸了它。",
+    cleanTitle:"帮它清理", cleanDesc:"请只点击指定颜色的移动便便。", cleanComplete:"变干净了。", pettingTitle:"请轻轻抚摸", pettingDesc:"触摸或拖动{name}附近，会出现爱心。", pettingComplete:"你轻轻抚摸了它。",
     dayCompleteTitle:"今天的照护到这里", comeBack:"请明天再来看它。", devNext:"开发用：进入下一天", beforeLossTitle:"今天的照护结束了", beforeLossText:"{name}安静地看着你。", stayClose:"待在旁边", lossTitle:"没有反应", lossText:"{name}的身体一点点变淡。小小的光在画面中扩散。刚才还在那里的气息，安静地消失了。", toRegen:"进入再生成",
     regenWaitTitle:"开始再生成", regenInherit:"根据此前的状态进行再生成。", regenNew:"从新的状态开始生成。", regenTitle:"已再生成", regenText:"存在从光中再次出现了。", startDay4:"进入第4天照护",
     surveyTitle:"五天的照护到这里结束", surveyText:"最后，请回答关于感受的问卷。", goSurvey:"进入最后问卷", finish:"已结束", reset:"重置", downloadCsv:"CSV日志", downloadJson:"JSON日志", logPreview:"日志预览", urlNote:"Google表单URL可在代码上方的 SURVEY_URL 中修改。"
@@ -1382,6 +1608,35 @@ let countdownTimer = null;
 function now(){ return new Date().toISOString(); }
 function t(key){ const lang = gameState.language || "ja"; return translations[lang]?.[key] ?? translations.ja[key] ?? key; }
 function tt(obj){ const lang = gameState.language || "ja"; return obj?.[lang] ?? obj?.ja ?? ""; }
+
+function localizedOptions(set){
+  const lang = gameState.language || "ja";
+  return set?.options?.[lang] || set?.options?.ja || [];
+}
+function getChoiceSet(kind){
+  const list = kind === "food" ? FOOD_CHOICE_SETS : OUTING_CHOICE_SETS;
+  const dayKey = String(gameState.day || 1);
+  gameState.choiceSets = gameState.choiceSets || {};
+  gameState.choiceSets[dayKey] = gameState.choiceSets[dayKey] || {};
+  let set = list.find(item => item.id === gameState.choiceSets[dayKey][kind]);
+  if(!set){
+    set = list[Math.floor(Math.random() * list.length)];
+    gameState.choiceSets[dayKey][kind] = set.id;
+    saveState();
+    logEvent(`${kind}_choice_set_assigned`, { choice_set_id:set.id, choices:localizedOptions(set).join(" / ") });
+  }
+  return set;
+}
+function getCleanText(key){
+  const lang = gameState.language || "ja";
+  return CLEAN_GAME_TEXTS[lang]?.[key] || CLEAN_GAME_TEXTS.ja[key] || key;
+}
+function getCleanColorLabel(color){
+  return tt(color?.label || {});
+}
+function shuffleArray(arr){
+  return arr.map(v => ({v, r:Math.random()})).sort((a,b)=>a.r-b.r).map(x=>x.v);
+}
 
 function formatDayLabel(day){
   const d = String(day ?? gameState.day ?? 1);
@@ -1428,7 +1683,7 @@ function getBeingAltText(){
 function replaceName(text){ return String(text).replaceAll("{name}", getBeingInlineName()); }
 
 function defaultState(){
-  return { language:null, research_id:null, screen:"01_language", consent:false, explanation_viewed:false, start_time:null, start_date:null, condition_id:null, identity_condition_id:null, macaron_color:null, character_id:null, character_name:"", day:1, affection:0, visit_count:0, dayActions:{}, dayComplete:{}, regenerated:false, last_message_id:null, version:"implementation_assets_v1" };
+  return { language:null, research_id:null, screen:"01_language", consent:false, explanation_viewed:false, start_time:null, start_date:null, condition_id:null, identity_condition_id:null, macaron_color:null, character_id:null, character_name:"", day:1, affection:0, visit_count:0, dayActions:{}, dayComplete:{}, choiceSets:{}, regenerated:false, last_message_id:null, version:"implementation_assets_v2_twenty_choices_moving_poop" };
 }
 function loadState(){ try{ return { ...defaultState(), ...(JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}) }; }catch(e){ return defaultState(); } }
 function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState)); updateStatus(); updateDevPanel(); }
@@ -1741,12 +1996,51 @@ function agreeConsent(){
   logEvent("consent_checked", { consent_checked:true, consent_time:gameState.consent_time }); saveState(); render();
 }
 
+function macaronImageCandidates(m){
+  const color = m.color || "";
+  const id = m.id || `${color}_macaron`;
+  const base = [
+    m.image,
+    `public/assets/macarons/${id}.png`,
+    `public/assets/macarons/${color}_macaron.png`,
+    `public/assets/macarons/${color}.png`,
+    `./public/assets/macarons/${id}.png`,
+    `./public/assets/macarons/${color}_macaron.png`,
+    `./public/assets/macarons/${color}.png`,
+    `public/assets/characters/macarons/${id}.png`,
+    `public/assets/characters/macarons/${color}_macaron.png`,
+    `public/assets/characters/macarons/${color}.png`,
+    `public/assets/characters/${id}.png`,
+    `public/assets/characters/${color}_macaron.png`,
+    `public/assets/characters/${color}.png`,
+    `${id}.png`,
+    `${color}_macaron.png`,
+    `${color}.png`
+  ];
+  return [...new Set(base.filter(Boolean))];
+}
+
+function tryNextImage(img){
+  const list = JSON.parse(img.dataset.fallbacks || "[]");
+  const index = Number(img.dataset.fallbackIndex || 0) + 1;
+  if(index < list.length){
+    img.dataset.fallbackIndex = String(index);
+    img.src = list[index];
+    return;
+  }
+  img.classList.add("hidden");
+  if(img.nextElementSibling){
+    img.nextElementSibling.classList.remove("hidden");
+  }
+}
+
 function renderMacaronImage(m, mode="select"){
   const cls = mode === "large" ? "macaron-img large" : "macaron-img";
   const fallbackStyle = mode === "large"
     ? `--macaron:${esc(m.css)};margin:32px auto;transform:scale(1.3);animation:floaty 2s ease-in-out infinite`
     : `--macaron:${esc(m.css)}`;
-  return `<img class="${cls}" src="${esc(m.image || "")}" alt="${esc(tt(m.label))}" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden')"><div class="macaron hidden" style="${fallbackStyle}"></div>`;
+  const candidates = macaronImageCandidates(m);
+  return `<img class="${cls}" src="${esc(candidates[0] || "")}" data-fallbacks='${esc(JSON.stringify(candidates))}' data-fallback-index="0" alt="${esc(tt(m.label))}" onerror="tryNextImage(this)"><div class="macaron hidden" style="${fallbackStyle}"></div>`;
 }
 
 function renderMacaronSelect(){
@@ -1902,31 +2196,45 @@ function renderDayHome(){
     </div>`);
 }
 function renderFood(){
-  const choices = t("foodChoices");
+  const set = getChoiceSet("food");
+  const choices = localizedOptions(set);
   screenShell(`
     <h2>${esc(t("foodTitle"))}</h2>
     <div class="grid two" style="margin-top:18px">
-      ${choices.map(c=>`<button class="choice" onclick="chooseFood('${esc(c)}')">${esc(c)}</button>`).join("")}
+      ${choices.map((c,i)=>`<button class="choice" onclick="chooseFoodOption(${i})">${esc(c)}</button>`).join("")}
     </div>
   `);
 }
-function chooseFood(choice){
+function chooseFoodOption(index){
+  const set = getChoiceSet("food");
+  const choices = localizedOptions(set);
+  const choice = choices[index] || choices[0] || "";
+  chooseFood(choice, set.id);
+}
+function chooseFood(choice, setId=""){
   const comment = getActionComment("food", choice) || t("foodReactHigh");
-  markAction("food_choice", { day:gameState.day, food_choice:choice, food_time:now(), character_comment:comment });
+  markAction("food_choice", { day:gameState.day, food_choice:choice, food_choice_set_id:setId, food_time:now(), character_comment:comment });
   showReaction(comment);
 }
 function renderOuting(){
-  const choices = t("outingChoices");
+  const set = getChoiceSet("outing");
+  const choices = localizedOptions(set);
   screenShell(`
     <h2>${esc(t("outingTitle"))}</h2>
     <div class="grid two" style="margin-top:18px">
-      ${choices.map(c=>`<button class="choice" onclick="chooseOuting('${esc(c)}')">${esc(c)}</button>`).join("")}
+      ${choices.map((c,i)=>`<button class="choice" onclick="chooseOutingOption(${i})">${esc(c)}</button>`).join("")}
     </div>
   `);
 }
-function chooseOuting(choice){
+function chooseOutingOption(index){
+  const set = getChoiceSet("outing");
+  const choices = localizedOptions(set);
+  const choice = choices[index] || choices[0] || "";
+  chooseOuting(choice, set.id);
+}
+function chooseOuting(choice, setId=""){
   const comment = getActionComment("outing", choice) || t("outingReactHigh");
-  markAction("outing_choice", { day:gameState.day, outing_choice:choice, outing_time:now(), character_comment:comment });
+  markAction("outing_choice", { day:gameState.day, outing_choice:choice, outing_choice_set_id:setId, outing_time:now(), character_comment:comment });
   showReaction(comment);
 }
 function showReaction(text){
@@ -1940,21 +2248,63 @@ function showReaction(text){
 function renderClean(){
   screenShell(`
     <h2>${esc(t("cleanTitle"))}</h2><p>${esc(replaceName(t("cleanDesc")))}</p>
-    <div id="poopArea" class="poop-area">
-      <span class="poop" style="left:20%;top:22%" onclick="cleanPoop(this)">💩</span>
-      <span class="poop" style="left:65%;top:40%" onclick="cleanPoop(this)">💩</span>
-      <span class="poop" style="left:42%;top:68%" onclick="cleanPoop(this)">💩</span>
-    </div>
+    <div id="cleanTarget" class="clean-target-card"></div>
+    <div id="poopArea" class="poop-area clean-game-area"></div>
+    <div class="center"><span id="cleanProgress" class="clean-progress"></span></div>
   `);
+  initMovingPoopGame();
+}
+function initMovingPoopGame(){
+  const area = document.getElementById("poopArea");
+  const targetEl = document.getElementById("cleanTarget");
+  const progressEl = document.getElementById("cleanProgress");
+  if(!area || !targetEl || !progressEl) return;
+  const target = CLEAN_COLORS[Math.floor(Math.random() * CLEAN_COLORS.length)];
+  const decoys = shuffleArray(CLEAN_COLORS.filter(c => c.id !== target.id));
+  const colors = shuffleArray([target, target, target, decoys[0], decoys[1], decoys[2], decoys[3] || decoys[0], target]);
+  window._poopTargetColor = target.id;
+  window._poopTargetLabel = getCleanColorLabel(target);
   window._poopCleaned = 0;
+  window._poopMistakes = 0;
+  window._poopTargetNeeded = 3;
+  targetEl.style.setProperty("--target-color", target.hex);
+  targetEl.innerHTML = `<span class="clean-color-dot"></span><span>${esc(getCleanText("target"))}：${esc(getCleanColorLabel(target))}</span>`;
+  updateCleanProgress();
+  area.innerHTML = colors.map((color, i) => {
+    const left = 10 + (i * 13) % 72;
+    const top = 13 + ((i * 29) % 70);
+    const dx = (i % 2 === 0 ? 1 : -1) * (28 + Math.floor(Math.random()*42));
+    const dy = (i % 3 === 0 ? -1 : 1) * (18 + Math.floor(Math.random()*36));
+    const dur = (2.0 + Math.random()*1.8).toFixed(2) + "s";
+    const delay = (-Math.random()*1.8).toFixed(2) + "s";
+    return `<span class="poop moving-poop" data-color="${esc(color.id)}" style="left:${left}%;top:${top}%;--ring:${esc(color.hex)};--dx:${dx}px;--dy:${dy}px;--dur:${dur};animation-delay:${delay}" onclick="cleanPoop(this)">💩</span>`;
+  }).join("");
+  logEvent("clean_game_start", { day:gameState.day, target_color_id:target.id, target_color_label:getCleanColorLabel(target), total_targets:4 });
+}
+function updateCleanProgress(){
+  const progressEl = document.getElementById("cleanProgress");
+  if(!progressEl) return;
+  const remain = Math.max(0, (window._poopTargetNeeded || 3) - (window._poopCleaned || 0));
+  progressEl.textContent = getCleanText("progress").replace("{n}", remain);
 }
 function cleanPoop(el){
-  el.style.opacity = 0; el.style.transform = "scale(.4) rotate(12deg)"; el.style.pointerEvents="none";
+  const color = el?.dataset?.color || "";
+  if(color !== window._poopTargetColor){
+    window._poopMistakes = (window._poopMistakes || 0) + 1;
+    el.classList.add("wrong");
+    showToast(getCleanText("wrong"));
+    logEvent("poop_wrong_color", { day:gameState.day, clicked_color_id:color, target_color_id:window._poopTargetColor, mistakes:window._poopMistakes });
+    setTimeout(()=>el.classList.remove("wrong"), 360);
+    return;
+  }
+  el.classList.add("cleaned");
   window._poopCleaned = (window._poopCleaned || 0) + 1;
-  if(window._poopCleaned >= 3){
-    const comment = getActionComment("clean") || t("cleanComplete");
-    markAction("poop_clean", { day:gameState.day, poop_clean_count:3, poop_clean_time:now(), character_comment:comment });
-    setTimeout(()=>showReaction(comment), 320);
+  updateCleanProgress();
+  logEvent("poop_correct_color", { day:gameState.day, clicked_color_id:color, target_color_id:window._poopTargetColor, cleaned:window._poopCleaned });
+  if(window._poopCleaned >= (window._poopTargetNeeded || 3)){
+    const comment = getActionComment("clean") || getCleanText("complete");
+    markAction("poop_clean", { day:gameState.day, poop_clean_count:window._poopCleaned, poop_wrong_count:window._poopMistakes || 0, target_color_id:window._poopTargetColor, target_color_label:window._poopTargetLabel, poop_clean_time:now(), character_comment:comment });
+    setTimeout(()=>showReaction(comment), 420);
   }
 }
 function renderPetting(){
