@@ -1346,6 +1346,14 @@ let countdownTimer = null;
 function now(){ return new Date().toISOString(); }
 function t(key){ const lang = gameState.language || "ja"; return translations[lang]?.[key] ?? translations.ja[key] ?? key; }
 function tt(obj){ const lang = gameState.language || "ja"; return obj?.[lang] ?? obj?.ja ?? ""; }
+
+function formatDayLabel(day){
+  const d = String(day ?? gameState.day ?? 1);
+  const lang = gameState.language || "ja";
+  if(lang === "en") return `${t("day")} ${d}`;
+  if(lang === "zh-CN") return `第${d}天`;
+  return `${d}${t("day")}`;
+}
 function getSpeechLabel(kind="normal"){
   const labels = {
     normal:{ ja:"ひとこと", en:"Message", "zh-CN":"一句话" },
@@ -1494,7 +1502,7 @@ function updateStatus(){
   if(gameState.research_id) parts.push(`<span class="pill">ID ${esc(gameState.research_id)}</span>`);
   if(DEV_MODE && gameState.condition_id) parts.push(`<span class="pill">${esc(gameState.condition_id)}</span>`);
   if(DEV_MODE && gameState.identity_condition_id) parts.push(`<span class="pill">${esc(gameState.identity_condition_id)}</span>`);
-  if(gameState.consent) parts.push(`<span class="pill">${esc(t("day"))}${esc(gameState.day)}</span>`);
+  if(gameState.consent) parts.push(`<span class="pill">${esc(formatDayLabel(gameState.day))}</span>`);
   status.innerHTML = parts.join("");
 }
 function isAfterRegeneration(){ return !!gameState.regenerated || (gameState.day || 1) >= 4; }
@@ -1837,7 +1845,7 @@ function renderDayHome(){
     <div class="home-layout">
       <div class="center">
         ${sparkles()}
-        <div class="pill">${esc(t("day"))} ${esc(gameState.day)}</div>
+        <div class="pill">${esc(formatDayLabel(gameState.day))}</div>
         <div class="pet-stage">${characterImg("happy")}</div>
       </div>
       <div>
