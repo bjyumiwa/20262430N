@@ -1887,7 +1887,6 @@ function showReaction(text){
   screenShell(`
     <div class="center">
       <div class="pet-stage">${characterImg("happy","smallish")}</div>
-      <h2>${esc(t("done"))}</h2>
       ${speechBubble(text)}
       <button class="primary" onclick="go('09_day_home')">${esc(t("returnHome"))}</button>
     </div>`);
